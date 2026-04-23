@@ -2,7 +2,8 @@ import os
 import sys
 import re
 from datetime import datetime, timezone, timedelta
-import google.generativeai as genai
+from google import genai
+from google.genai import types
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from fetch_market_data import snapshot
