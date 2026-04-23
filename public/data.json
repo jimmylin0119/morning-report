@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-04-24 05:32:30",
-  "updated_ts": 1776979950,
+  "updated_at": "2026-04-24 06:27:28",
+  "updated_ts": 1776983248,
   "market_status": "盤後時段",
   "tw": [
     {
@@ -163,9 +163,9 @@
     },
     {
       "symbol": "DX-Y.NYB",
-      "price": 98.83,
-      "change": 0.24,
-      "pct": 0.24,
+      "price": 98.8,
+      "change": 0.21,
+      "pct": 0.21,
       "name": "美元指數 DXY"
     },
     {
@@ -177,16 +177,16 @@
     },
     {
       "symbol": "BZ=F",
-      "price": 106.47,
-      "change": 4.56,
-      "pct": 4.47,
+      "price": 105.92,
+      "change": 4.01,
+      "pct": 3.93,
       "name": "布蘭特原油"
     },
     {
       "symbol": "GC=F",
-      "price": 4708.6,
-      "change": -23.9,
-      "pct": -0.51,
+      "price": 4711.8,
+      "change": -20.7,
+      "pct": -0.44,
       "name": "黃金"
     },
     {
@@ -365,23 +365,23 @@
     },
     "dxy": {
       "symbol": "DX-Y.NYB",
-      "price": 98.83,
-      "change": 0.24,
-      "pct": 0.24,
+      "price": 98.8,
+      "change": 0.21,
+      "pct": 0.21,
       "name": "美元指數 DXY"
     },
     "gold": {
       "symbol": "GC=F",
-      "price": 4708.6,
-      "change": -23.9,
-      "pct": -0.51,
+      "price": 4711.8,
+      "change": -20.7,
+      "pct": -0.44,
       "name": "黃金"
     },
     "oil": {
       "symbol": "BZ=F",
-      "price": 106.47,
-      "change": 4.56,
-      "pct": 4.47,
+      "price": 105.92,
+      "change": 4.01,
+      "pct": 3.93,
       "name": "布蘭特原油"
     },
     "usd_twd": {
