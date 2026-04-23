@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-04-23 20:11:10",
-  "updated_ts": 1776946270,
+  "updated_at": "2026-04-23 22:13:53",
+  "updated_ts": 1776953633,
   "market_status": "盤後時段",
   "tw": [
     {
@@ -77,116 +77,116 @@
   "us": [
     {
       "symbol": "^GSPC",
-      "price": 7137.9,
-      "change": 73.89,
-      "pct": 1.05,
+      "price": 7125.19,
+      "change": -12.71,
+      "pct": -0.18,
       "name": "S&P 500"
     },
     {
       "symbol": "^IXIC",
-      "price": 24657.57,
-      "change": 397.61,
-      "pct": 1.64,
+      "price": 24521.73,
+      "change": -135.84,
+      "pct": -0.55,
       "name": "NASDAQ"
     },
     {
       "symbol": "^DJI",
-      "price": 49490.03,
-      "change": 340.65,
-      "pct": 0.69,
+      "price": 49418.86,
+      "change": -71.17,
+      "pct": -0.14,
       "name": "Dow Jones"
     },
     {
       "symbol": "NVDA",
-      "price": 202.5,
-      "change": 2.62,
-      "pct": 1.31,
+      "price": 202.17,
+      "change": -0.33,
+      "pct": -0.16,
       "name": "NVDA"
     },
     {
       "symbol": "MSFT",
-      "price": 432.92,
-      "change": 8.76,
-      "pct": 2.07,
+      "price": 416.9,
+      "change": -16.02,
+      "pct": -3.7,
       "name": "MSFT"
     },
     {
       "symbol": "AAPL",
-      "price": 273.17,
-      "change": 7.0,
-      "pct": 2.63,
+      "price": 274.1,
+      "change": 0.93,
+      "pct": 0.34,
       "name": "AAPL"
     },
     {
       "symbol": "GOOGL",
-      "price": 339.32,
-      "change": 7.03,
-      "pct": 2.12,
+      "price": 339.8,
+      "change": 0.48,
+      "pct": 0.14,
       "name": "GOOGL"
     },
     {
       "symbol": "AMZN",
-      "price": 255.36,
-      "change": 5.45,
-      "pct": 2.18,
+      "price": 254.71,
+      "change": -0.65,
+      "pct": -0.26,
       "name": "AMZN"
     },
     {
       "symbol": "TSLA",
-      "price": 387.51,
-      "change": 1.09,
-      "pct": 0.28,
+      "price": 371.45,
+      "change": -16.06,
+      "pct": -4.14,
       "name": "TSLA"
     },
     {
       "symbol": "META",
-      "price": 674.72,
-      "change": 5.88,
-      "pct": 0.88,
+      "price": 662.79,
+      "change": -11.93,
+      "pct": -1.77,
       "name": "META"
     },
     {
       "symbol": "QQQ",
-      "price": 655.11,
-      "change": 10.78,
-      "pct": 1.67,
+      "price": 652.92,
+      "change": -2.19,
+      "pct": -0.33,
       "name": "QQQ"
     }
   ],
   "macro": [
     {
       "symbol": "^VIX",
-      "price": 19.31,
-      "change": 0.39,
-      "pct": 2.06,
+      "price": 19.36,
+      "change": 0.44,
+      "pct": 2.33,
       "name": "VIX"
     },
     {
       "symbol": "DX-Y.NYB",
-      "price": 98.69,
-      "change": 0.1,
-      "pct": 0.1,
+      "price": 98.73,
+      "change": 0.14,
+      "pct": 0.14,
       "name": "美元指數 DXY"
     },
     {
       "symbol": "^TNX",
       "price": 4.29,
-      "change": 0.0,
-      "pct": 0.05,
+      "change": -0.0,
+      "pct": -0.09,
       "name": "10Y 美債殖利率"
     },
     {
       "symbol": "BZ=F",
-      "price": 96.7,
-      "change": -5.21,
-      "pct": -5.11,
+      "price": 103.26,
+      "change": 1.35,
+      "pct": 1.32,
       "name": "布蘭特原油"
     },
     {
       "symbol": "GC=F",
-      "price": 4743.4,
-      "change": 10.9,
-      "pct": 0.23,
+      "price": 4738.5,
+      "change": 6.0,
+      "pct": 0.13,
       "name": "黃金"
     },
     {
@@ -262,69 +262,69 @@
   "us_ticker": [
     {
       "sym": "S&P 500",
-      "price": "7,137.90",
-      "chg": "+1.05%",
-      "dir": "up"
+      "price": "7,125.19",
+      "chg": "-0.18%",
+      "dir": "down"
     },
     {
       "sym": "NASDAQ",
-      "price": "24,657.57",
-      "chg": "+1.64%",
-      "dir": "up"
+      "price": "24,521.73",
+      "chg": "-0.55%",
+      "dir": "down"
     },
     {
       "sym": "Dow Jones",
-      "price": "49,490.03",
-      "chg": "+0.69%",
-      "dir": "up"
+      "price": "49,418.86",
+      "chg": "-0.14%",
+      "dir": "down"
     },
     {
       "sym": "NVDA",
-      "price": "202.50",
-      "chg": "+1.31%",
-      "dir": "up"
+      "price": "202.17",
+      "chg": "-0.16%",
+      "dir": "down"
     },
     {
       "sym": "MSFT",
-      "price": "432.92",
-      "chg": "+2.07%",
-      "dir": "up"
+      "price": "416.90",
+      "chg": "-3.70%",
+      "dir": "down"
     },
     {
       "sym": "AAPL",
-      "price": "273.17",
-      "chg": "+2.63%",
+      "price": "274.10",
+      "chg": "+0.34%",
       "dir": "up"
     },
     {
       "sym": "GOOGL",
-      "price": "339.32",
-      "chg": "+2.12%",
+      "price": "339.80",
+      "chg": "+0.14%",
       "dir": "up"
     },
     {
       "sym": "AMZN",
-      "price": "255.36",
-      "chg": "+2.18%",
-      "dir": "up"
+      "price": "254.71",
+      "chg": "-0.26%",
+      "dir": "down"
     },
     {
       "sym": "TSLA",
-      "price": "387.51",
-      "chg": "+0.28%",
-      "dir": "up"
+      "price": "371.45",
+      "chg": "-4.14%",
+      "dir": "down"
     },
     {
       "sym": "META",
-      "price": "674.72",
-      "chg": "+0.88%",
-      "dir": "up"
+      "price": "662.79",
+      "chg": "-1.77%",
+      "dir": "down"
     },
     {
       "sym": "QQQ",
-      "price": "655.11",
-      "chg": "+1.67%",
-      "dir": "up"
+      "price": "652.92",
+      "chg": "-0.33%",
+      "dir": "down"
     }
   ],
   "market_cards": {
@@ -344,44 +344,44 @@
     },
     "sp500": {
       "symbol": "^GSPC",
-      "price": 7137.9,
-      "change": 73.89,
-      "pct": 1.05,
+      "price": 7125.19,
+      "change": -12.71,
+      "pct": -0.18,
       "name": "S&P 500"
     },
     "nasdaq": {
       "symbol": "^IXIC",
-      "price": 24657.57,
-      "change": 397.61,
-      "pct": 1.64,
+      "price": 24521.73,
+      "change": -135.84,
+      "pct": -0.55,
       "name": "NASDAQ"
     },
     "vix": {
       "symbol": "^VIX",
-      "price": 19.31,
-      "change": 0.39,
-      "pct": 2.06,
+      "price": 19.36,
+      "change": 0.44,
+      "pct": 2.33,
       "name": "VIX"
     },
     "dxy": {
       "symbol": "DX-Y.NYB",
-      "price": 98.69,
-      "change": 0.1,
-      "pct": 0.1,
+      "price": 98.73,
+      "change": 0.14,
+      "pct": 0.14,
       "name": "美元指數 DXY"
     },
     "gold": {
       "symbol": "GC=F",
-      "price": 4743.4,
-      "change": 10.9,
-      "pct": 0.23,
+      "price": 4738.5,
+      "change": 6.0,
+      "pct": 0.13,
       "name": "黃金"
     },
     "oil": {
       "symbol": "BZ=F",
-      "price": 96.7,
-      "change": -5.21,
-      "pct": -5.11,
+      "price": 103.26,
+      "change": 1.35,
+      "pct": 1.32,
       "name": "布蘭特原油"
     },
     "usd_twd": {
@@ -394,8 +394,8 @@
     "us10y": {
       "symbol": "^TNX",
       "price": 4.29,
-      "change": 0.0,
-      "pct": 0.05,
+      "change": -0.0,
+      "pct": -0.09,
       "name": "10Y 美債殖利率"
     }
   }
