@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-04-23 17:55:29",
-  "updated_ts": 1776938129,
+  "updated_at": "2026-04-23 19:08:50",
+  "updated_ts": 1776942530,
   "market_status": "盤後時段",
   "tw": [
     {
@@ -58,6 +58,20 @@
       "change": -1.0,
       "pct": -0.5,
       "name": "長榮"
+    },
+    {
+      "symbol": "3008.TW",
+      "price": 2485.0,
+      "change": -100.0,
+      "pct": -3.87,
+      "name": "大立光"
+    },
+    {
+      "symbol": "2303.TW",
+      "price": 73.6,
+      "change": -5.0,
+      "pct": -6.36,
+      "name": "聯電"
     }
   ],
   "us": [
@@ -130,21 +144,28 @@
       "change": 5.88,
       "pct": 0.88,
       "name": "META"
+    },
+    {
+      "symbol": "QQQ",
+      "price": 655.11,
+      "change": 10.78,
+      "pct": 1.67,
+      "name": "QQQ"
     }
   ],
   "macro": [
     {
       "symbol": "^VIX",
-      "price": 19.73,
-      "change": 0.81,
-      "pct": 4.28,
+      "price": 19.65,
+      "change": 0.73,
+      "pct": 3.86,
       "name": "VIX"
     },
     {
       "symbol": "DX-Y.NYB",
-      "price": 98.68,
-      "change": 0.09,
-      "pct": 0.09,
+      "price": 98.78,
+      "change": 0.19,
+      "pct": 0.19,
       "name": "美元指數 DXY"
     },
     {
@@ -156,23 +177,23 @@
     },
     {
       "symbol": "BZ=F",
-      "price": 97.98,
-      "change": -3.93,
-      "pct": -3.86,
+      "price": 97.29,
+      "change": -4.62,
+      "pct": -4.53,
       "name": "布蘭特原油"
     },
     {
       "symbol": "GC=F",
-      "price": 4717.8,
-      "change": -14.7,
-      "pct": -0.31,
+      "price": 4713.1,
+      "change": -19.4,
+      "pct": -0.41,
       "name": "黃金"
     },
     {
       "symbol": "TWD=X",
-      "price": 31.55,
-      "change": 0.07,
-      "pct": 0.23,
+      "price": 31.57,
+      "change": 0.08,
+      "pct": 0.27,
       "name": "USD/TWD"
     }
   ],
@@ -223,6 +244,18 @@
       "sym": "長榮",
       "price": "201.00",
       "chg": "-0.50%",
+      "dir": "down"
+    },
+    {
+      "sym": "大立光",
+      "price": "2,485.00",
+      "chg": "-3.87%",
+      "dir": "down"
+    },
+    {
+      "sym": "聯電",
+      "price": "73.60",
+      "chg": "-6.36%",
       "dir": "down"
     }
   ],
@@ -286,6 +319,12 @@
       "price": "674.72",
       "chg": "+0.88%",
       "dir": "up"
+    },
+    {
+      "sym": "QQQ",
+      "price": "655.11",
+      "chg": "+1.67%",
+      "dir": "up"
     }
   ],
   "market_cards": {
@@ -319,37 +358,37 @@
     },
     "vix": {
       "symbol": "^VIX",
-      "price": 19.73,
-      "change": 0.81,
-      "pct": 4.28,
+      "price": 19.65,
+      "change": 0.73,
+      "pct": 3.86,
       "name": "VIX"
     },
     "dxy": {
       "symbol": "DX-Y.NYB",
-      "price": 98.68,
-      "change": 0.09,
-      "pct": 0.09,
+      "price": 98.78,
+      "change": 0.19,
+      "pct": 0.19,
       "name": "美元指數 DXY"
     },
     "gold": {
       "symbol": "GC=F",
-      "price": 4717.8,
-      "change": -14.7,
-      "pct": -0.31,
+      "price": 4713.1,
+      "change": -19.4,
+      "pct": -0.41,
       "name": "黃金"
     },
     "oil": {
       "symbol": "BZ=F",
-      "price": 97.98,
-      "change": -3.93,
-      "pct": -3.86,
+      "price": 97.29,
+      "change": -4.62,
+      "pct": -4.53,
       "name": "布蘭特原油"
     },
     "usd_twd": {
       "symbol": "TWD=X",
-      "price": 31.55,
-      "change": 0.07,
-      "pct": 0.23,
+      "price": 31.57,
+      "change": 0.08,
+      "pct": 0.27,
       "name": "USD/TWD"
     },
     "us10y": {
