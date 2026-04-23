@@ -10,6 +10,8 @@ TW_SYMBOLS = {
     "廣達": "2382.TW",
     "緯創": "3231.TW",
     "長榮": "2603.TW",
+    "大立光": "3008.TW",
+    "聯電": "2303.TW",
 }
 
 US_SYMBOLS = {
@@ -23,6 +25,7 @@ US_SYMBOLS = {
     "AMZN": "AMZN",
     "TSLA": "TSLA",
     "META": "META",
+    "QQQ": "QQQ",
 }
 
 MACRO_SYMBOLS = {
