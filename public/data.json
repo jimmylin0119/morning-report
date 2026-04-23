@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-04-23 19:14:04",
-  "updated_ts": 1776942844,
+  "updated_at": "2026-04-23 20:11:10",
+  "updated_ts": 1776946270,
   "market_status": "盤後時段",
   "tw": [
     {
@@ -156,16 +156,16 @@
   "macro": [
     {
       "symbol": "^VIX",
-      "price": 19.59,
-      "change": 0.67,
-      "pct": 3.54,
+      "price": 19.31,
+      "change": 0.39,
+      "pct": 2.06,
       "name": "VIX"
     },
     {
       "symbol": "DX-Y.NYB",
-      "price": 98.79,
-      "change": 0.2,
-      "pct": 0.2,
+      "price": 98.69,
+      "change": 0.1,
+      "pct": 0.1,
       "name": "美元指數 DXY"
     },
     {
@@ -177,23 +177,23 @@
     },
     {
       "symbol": "BZ=F",
-      "price": 97.22,
-      "change": -4.69,
-      "pct": -4.6,
+      "price": 96.7,
+      "change": -5.21,
+      "pct": -5.11,
       "name": "布蘭特原油"
     },
     {
       "symbol": "GC=F",
-      "price": 4715.8,
-      "change": -16.7,
-      "pct": -0.35,
+      "price": 4743.4,
+      "change": 10.9,
+      "pct": 0.23,
       "name": "黃金"
     },
     {
       "symbol": "TWD=X",
-      "price": 31.56,
-      "change": 0.08,
-      "pct": 0.25,
+      "price": 31.53,
+      "change": 0.05,
+      "pct": 0.14,
       "name": "USD/TWD"
     }
   ],
@@ -358,37 +358,37 @@
     },
     "vix": {
       "symbol": "^VIX",
-      "price": 19.59,
-      "change": 0.67,
-      "pct": 3.54,
+      "price": 19.31,
+      "change": 0.39,
+      "pct": 2.06,
       "name": "VIX"
     },
     "dxy": {
       "symbol": "DX-Y.NYB",
-      "price": 98.79,
-      "change": 0.2,
-      "pct": 0.2,
+      "price": 98.69,
+      "change": 0.1,
+      "pct": 0.1,
       "name": "美元指數 DXY"
     },
     "gold": {
       "symbol": "GC=F",
-      "price": 4715.8,
-      "change": -16.7,
-      "pct": -0.35,
+      "price": 4743.4,
+      "change": 10.9,
+      "pct": 0.23,
       "name": "黃金"
     },
     "oil": {
       "symbol": "BZ=F",
-      "price": 97.22,
-      "change": -4.69,
-      "pct": -4.6,
+      "price": 96.7,
+      "change": -5.21,
+      "pct": -5.11,
       "name": "布蘭特原油"
     },
     "usd_twd": {
       "symbol": "TWD=X",
-      "price": 31.56,
-      "change": 0.08,
-      "pct": 0.25,
+      "price": 31.53,
+      "change": 0.05,
+      "pct": 0.14,
       "name": "USD/TWD"
     },
     "us10y": {
