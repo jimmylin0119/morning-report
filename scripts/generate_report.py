@@ -9,7 +9,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from fetch_market_data import snapshot
 from send_telegram import send_messages
 
-GEMINI_MODEL = "gemini-2.0-flash-exp"
+GEMINI_MODEL = "gemini-2.0-flash"
 MORNING_URL = "https://jimmylin-strategy.netlify.app/"
 TW_TZ = timezone(timedelta(hours=8))
 
@@ -79,17 +79,24 @@ def generate_report(market_data):
     api_key = os.environ.get("GEMINI_API_KEY")
     if not api_key:
         raise RuntimeError("缺少 GEMINI_API_KEY")
-    genai.configure(api_key=api_key)
+
+    client = genai.Client(api_key=api_key)
     now_tw = datetime.now(TW_TZ)
     date_str = now_tw.strftime("%Y/%m/%d")
     weekday = ["週一","週二","週三","週四","週五","週六","週日"][now_tw.weekday()]
+
     print(f"[info] 呼叫 Gemini（{GEMINI_MODEL}）...")
-    model = genai.GenerativeModel(
-        model_name=GEMINI_MODEL,
-        system_instruction=SYSTEM_PROMPT,
-        generation_config={"temperature": 0.7, "max_output_tokens": 4000},
+
+    response = client.models.generate_content(
+        model=GEMINI_MODEL,
+        config=types.GenerateContentConfig(
+            system_instruction=SYSTEM_PROMPT,
+            temperature=0.7,
+            max_output_tokens=4000,
+        ),
+        contents=build_prompt(market_data, date_str, weekday),
     )
-    response = model.generate_content(build_prompt(market_data, date_str, weekday))
+
     messages = [m.strip() for m in response.text.split("<<<MSG_SPLIT>>>") if m.strip()]
     print(f"[info] 產出 {len(messages)} 則")
     return messages
