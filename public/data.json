@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-04-24 06:27:28",
-  "updated_ts": 1776983248,
+  "updated_at": "2026-04-24 07:27:02",
+  "updated_ts": 1776986822,
   "market_status": "盤後時段",
   "tw": [
     {
@@ -177,23 +177,23 @@
     },
     {
       "symbol": "BZ=F",
-      "price": 105.92,
-      "change": 4.01,
-      "pct": 3.93,
+      "price": 106.45,
+      "change": 4.54,
+      "pct": 4.45,
       "name": "布蘭特原油"
     },
     {
       "symbol": "GC=F",
-      "price": 4711.8,
-      "change": -20.7,
-      "pct": -0.44,
+      "price": 4703.1,
+      "change": -29.4,
+      "pct": -0.62,
       "name": "黃金"
     },
     {
       "symbol": "TWD=X",
-      "price": 31.55,
-      "change": 0.06,
-      "pct": 0.2,
+      "price": 31.47,
+      "change": -0.02,
+      "pct": -0.05,
       "name": "USD/TWD"
     }
   ],
@@ -372,23 +372,23 @@
     },
     "gold": {
       "symbol": "GC=F",
-      "price": 4711.8,
-      "change": -20.7,
-      "pct": -0.44,
+      "price": 4703.1,
+      "change": -29.4,
+      "pct": -0.62,
       "name": "黃金"
     },
     "oil": {
       "symbol": "BZ=F",
-      "price": 105.92,
-      "change": 4.01,
-      "pct": 3.93,
+      "price": 106.45,
+      "change": 4.54,
+      "pct": 4.45,
       "name": "布蘭特原油"
     },
     "usd_twd": {
       "symbol": "TWD=X",
-      "price": 31.55,
-      "change": 0.06,
-      "pct": 0.2,
+      "price": 31.47,
+      "change": -0.02,
+      "pct": -0.05,
       "name": "USD/TWD"
     },
     "us10y": {
