@@ -11,7 +11,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from fetch_market_data import snapshot
 from send_telegram import send_messages
 
-GEMINI_MODEL = "gemini-2.0-flash"
+GEMINI_MODEL = "gemini-1.5-flash"
 MORNING_URL = "https://jimmylin-strategy.netlify.app/"
 TW_TZ = timezone(timedelta(hours=8))
 
