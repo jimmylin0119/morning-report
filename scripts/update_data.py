@@ -2,6 +2,7 @@ import json
 import os
 import sys
 import time
+import math
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
@@ -11,6 +12,18 @@ from fetch_market_data import fetch_group, TW_SYMBOLS, US_SYMBOLS, MACRO_SYMBOLS
 TW_TZ = timezone(timedelta(hours=8))
 
 
+def clean_nan(obj):
+    """遞迴把所有 NaN 轉成 None，確保 JSON 有效。"""
+    if isinstance(obj, dict):
+        return {k: clean_nan(v) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [clean_nan(x) for x in obj]
+    if isinstance(obj, float):
+        if math.isnan(obj) or math.isinf(obj):
+            return None
+    return obj
+
+
 def build_data(retry=2):
     last_err = None
     for attempt in range(1, retry + 2):
@@ -18,15 +31,12 @@ def build_data(retry=2):
             now = datetime.now(TW_TZ)
             print(f"[update_data] 第 {attempt} 次嘗試抓取行情...")
 
-            import fetch_market_data as _fmd
-            _fmd._cache = {}
-
             tw    = fetch_group(TW_SYMBOLS)
             us    = fetch_group(US_SYMBOLS)
             macro = fetch_group(MACRO_SYMBOLS)
 
             if not tw and not us:
-                raise ValueError("台股與美股資料均為空，可能 yfinance 被限流")
+                raise ValueError("台股與美股資料均為空")
 
             total_min = now.hour * 60 + now.minute
             weekday   = now.weekday()
@@ -41,12 +51,17 @@ def build_data(retry=2):
                 market_status = "盤後時段"
 
             def to_ticker(items):
-                return [{
-                    "sym":   x["name"],
-                    "price": f"{x['price']:,.2f}",
-                    "chg":   f"{'+' if x['pct'] >= 0 else ''}{x['pct']:.2f}%",
-                    "dir":   "up" if x["pct"] >= 0 else "down"
-                } for x in items]
+                out = []
+                for x in items:
+                    if x.get("price") is None or x.get("pct") is None:
+                        continue
+                    out.append({
+                        "sym":   x["name"],
+                        "price": f"{x['price']:,.2f}",
+                        "chg":   f"{'+' if x['pct'] >= 0 else ''}{x['pct']:.2f}%",
+                        "dir":   "up" if x["pct"] >= 0 else "down"
+                    })
+                return out
 
             def find(items, name):
                 return next((x for x in items if x["name"] == name), None)
@@ -78,10 +93,10 @@ def build_data(retry=2):
             print(f"  x 第 {attempt} 次失敗：{e}")
             if attempt <= retry:
                 wait = attempt * 10
-                print(f"  重試中，等待 {wait} 秒...")
+                print(f"  等待 {wait} 秒後重試...")
                 time.sleep(wait)
 
-    raise RuntimeError(f"重試 {retry + 1} 次後仍失敗：{last_err}")
+    raise RuntimeError(f"重試失敗：{last_err}")
 
 
 def main():
@@ -102,9 +117,12 @@ def main():
         print(f"  x 最終失敗：{e}")
         sys.exit(1)
 
+    # 關鍵：寫入前把所有 NaN 轉成 null
     existing.update(data)
+    cleaned = clean_nan(existing)
+
     output_path.write_text(
-        json.dumps(existing, ensure_ascii=False, indent=2),
+        json.dumps(cleaned, ensure_ascii=False, indent=2, allow_nan=False),
         encoding="utf-8"
     )
     print(f"  ok 更新完成：{data['updated_at']} | {data['market_status']}")
