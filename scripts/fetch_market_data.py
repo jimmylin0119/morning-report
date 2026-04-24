@@ -1,5 +1,6 @@
 import yfinance as yf
 import requests
+import math
 from datetime import datetime, date
 
 TW_SYMBOLS = {
@@ -38,12 +39,22 @@ MACRO_SYMBOLS = {
     "USD/TWD": "TWD=X",
 }
 
-ALL_SYMBOLS = {**US_SYMBOLS, **MACRO_SYMBOLS}
 
-_cache = {}
+def _safe_num(x):
+    """把 NaN、None 轉成 None，其他保留數字。"""
+    try:
+        if x is None:
+            return None
+        f = float(x)
+        if math.isnan(f) or math.isinf(f):
+            return None
+        return f
+    except Exception:
+        return None
 
 
 def calc_rsi(closes, period=14):
+    closes = [c for c in closes if _safe_num(c) is not None]
     if len(closes) < period + 1:
         return None
     gains, losses = [], []
@@ -60,35 +71,49 @@ def calc_rsi(closes, period=14):
 
 
 def calc_ma(closes, period):
+    closes = [c for c in closes if _safe_num(c) is not None]
     if len(closes) < period:
         return None
     return round(sum(closes[-period:]) / period, 2)
 
 
-def _build_quote(name, symbol, hist):
+def fetch_yf_one(symbol, name):
+    """單一 symbol 用 yf.Ticker 抓，避開 batch download 的問題。"""
     try:
+        t = yf.Ticker(symbol)
+        hist = t.history(period="60d", auto_adjust=True)
         if hist is None or hist.empty or len(hist) < 2:
+            print(f"[warn] {name}({symbol}) 無資料")
             return None
-        closes  = hist["Close"].tolist()
-        highs   = hist["High"].tolist()
-        lows    = hist["Low"].tolist()
-        volumes = hist["Volume"].tolist() if "Volume" in hist.columns else []
-        last = float(closes[-1])
-        prev = float(closes[-2])
-        pct  = (last - prev) / prev * 100 if prev else 0.0
+
+        # 清掉 NaN 的列
+        hist = hist.dropna(subset=["Close"])
+        if len(hist) < 2:
+            return None
+
+        closes = [float(x) for x in hist["Close"].tolist()]
+        highs  = [float(x) for x in hist["High"].tolist()]
+        lows   = [float(x) for x in hist["Low"].tolist()]
+        volumes = [float(x) for x in hist["Volume"].tolist()] if "Volume" in hist.columns else []
+
+        last = closes[-1]
+        prev = closes[-2]
+        pct = (last - prev) / prev * 100 if prev else 0.0
+
         vol_ratio = None
         if len(volumes) >= 6:
             avg_vol = sum(volumes[-6:-1]) / 5
             if avg_vol > 0:
                 vol_ratio = round(volumes[-1] / avg_vol, 2)
+
         return {
             "name":      name,
             "symbol":    symbol,
             "price":     round(last, 2),
             "change":    round(last - prev, 2),
             "pct":       round(pct, 2),
-            "high":      round(float(highs[-1]), 2),
-            "low":       round(float(lows[-1]), 2),
+            "high":      round(highs[-1], 2),
+            "low":       round(lows[-1], 2),
             "ma5":       calc_ma(closes, 5),
             "ma10":      calc_ma(closes, 10),
             "ma20":      calc_ma(closes, 20),
@@ -96,77 +121,51 @@ def _build_quote(name, symbol, hist):
             "vol_ratio": vol_ratio,
         }
     except Exception as e:
-        print(f"[warn] _build_quote({symbol}) failed: {e}")
+        print(f"[warn] fetch_yf_one({symbol}) failed: {e}")
         return None
 
 
-def _ensure_cache(symbols_dict):
-    global _cache
-    if _cache:
-        return
-    all_syms = list(symbols_dict.values())
-    print(f"[fetch] batch download {len(all_syms)} symbols...")
-    try:
-        raw = yf.download(
-            tickers=all_syms,
-            period="60d",
-            interval="1d",
-            group_by="ticker",
-            auto_adjust=True,
-            progress=False,
-            threads=True,
-            timeout=30,
-        )
-        for sym in all_syms:
-            try:
-                if len(all_syms) == 1:
-                    _cache[sym] = raw
-                else:
-                    _cache[sym] = raw[sym] if sym in raw.columns.get_level_values(0) else None
-            except Exception:
-                _cache[sym] = None
-        print(f"[fetch] batch download 完成")
-    except Exception as e:
-        print(f"[warn] batch download 失敗，改用逐一模式: {e}")
-        for sym in all_syms:
-            try:
-                _cache[sym] = yf.Ticker(sym).history(period="60d")
-            except Exception as e2:
-                print(f"[warn] fallback {sym} failed: {e2}")
-                _cache[sym] = None
-
-
-# ── 台股：改用 TWSE 官方 API 抓最新資料 ──
 def fetch_twse_quote(stock_id, name):
-    """從台灣證交所官方 API 抓個股即時資料。"""
+    """從證交所抓個股資料。欄位順序：日期,股數,金額,開,高,低,收,漲跌,筆數"""
     try:
         today = date.today().strftime("%Y%m%d")
         url = f"https://www.twse.com.tw/rwd/zh/afterTrading/STOCK_DAY?date={today}&stockNo={stock_id}&response=json"
-        r = requests.get(url, timeout=10, headers={"User-Agent": "Mozilla/5.0"})
+        r = requests.get(url, timeout=15, headers={"User-Agent": "Mozilla/5.0"})
         data = r.json()
         if data.get("stat") != "OK" or not data.get("data"):
             return None
         rows = data["data"]
-        # 最後一筆是最新交易日
         last_row = rows[-1]
-        prev_row = rows[-2] if len(rows) >= 2 else None
-        # 欄位：日期,成交股數,成交金額,開盤價,最高價,最低價,收盤價,漲跌價差,成交筆數
-        close = float(last_row[6].replace(",", ""))
-        high  = float(last_row[4].replace(",", ""))
-        low   = float(last_row[5].replace(",", ""))
-        open_ = float(last_row[3].replace(",", ""))
-        change = float(last_row[7].replace(",", "").replace("+", ""))
+
+        def parse_num(s):
+            return float(str(s).replace(",", "").replace("+", "").replace("X", "").strip())
+
+        close  = parse_num(last_row[6])
+        high   = parse_num(last_row[4])
+        low    = parse_num(last_row[5])
+        change_str = str(last_row[7]).replace(",", "").strip()
+        # 漲跌可能含 "+" 或 "-"，先處理正負號
+        change = parse_num(change_str)
+        if change_str.startswith("-") or "-" in change_str:
+            change = -abs(change)
         prev_close = close - change
         pct = (change / prev_close * 100) if prev_close else 0.0
-        closes = [float(row[6].replace(",", "")) for row in rows]
+
+        closes = []
+        for row in rows:
+            try:
+                closes.append(parse_num(row[6]))
+            except Exception:
+                pass
+
         return {
             "name":      name,
             "symbol":    stock_id,
-            "price":     close,
+            "price":     round(close, 2),
             "change":    round(change, 2),
             "pct":       round(pct, 2),
-            "high":      high,
-            "low":       low,
+            "high":      round(high, 2),
+            "low":       round(low, 2),
             "ma5":       calc_ma(closes, 5),
             "ma10":      calc_ma(closes, 10),
             "ma20":      calc_ma(closes, 20),
@@ -178,80 +177,32 @@ def fetch_twse_quote(stock_id, name):
         return None
 
 
-def fetch_twse_index(name):
-    """從 TWSE 抓加權/櫃買指數。"""
-    try:
-        url = "https://www.twse.com.tw/rwd/zh/afterTrading/MI_INDEX?response=json"
-        r = requests.get(url, timeout=10, headers={"User-Agent": "Mozilla/5.0"})
-        data = r.json()
-        # 找 "大盤統計資訊" 表
-        for table in data.get("tables", []):
-            for row in table.get("data", []):
-                if "發行量加權股價指數" in str(row):
-                    try:
-                        price = float(str(row[1]).replace(",", ""))
-                        change = float(str(row[2]).replace(",", ""))
-                        prev = price - change
-                        pct = (change / prev * 100) if prev else 0.0
-                        return {
-                            "name":   name,
-                            "symbol": "^TWII",
-                            "price":  round(price, 2),
-                            "change": round(change, 2),
-                            "pct":    round(pct, 2),
-                            "high": None, "low": None,
-                            "ma5": None, "ma10": None, "ma20": None,
-                            "rsi": None, "vol_ratio": None,
-                        }
-                    except Exception:
-                        pass
-        return None
-    except Exception as e:
-        print(f"[warn] fetch_twse_index failed: {e}")
-        return None
-
-
 def fetch_group(symbols_dict):
-    # 台股走 TWSE API，美股+總經走 yfinance
+    result = []
+    # 台股：指數走 yfinance，個股走 TWSE
     if symbols_dict is TW_SYMBOLS:
-        return fetch_tw_group()
-    _ensure_cache(ALL_SYMBOLS)
-    result = []
-    for name, sym in symbols_dict.items():
-        q = _build_quote(name, sym, _cache.get(sym))
-        if q:
-            result.append(q)
-        else:
-            print(f"[warn] 無法取得 {name} ({sym})")
-    return result
-
-
-def fetch_tw_group():
-    """台股全部走 TWSE 官方 API。"""
-    result = []
-    for name, sym in TW_SYMBOLS.items():
-        if sym in ("^TWII", "^TWOII"):
-            # 指數用 yfinance fallback
-            try:
-                hist = yf.Ticker(sym).history(period="60d")
-                q = _build_quote(name, sym, hist)
-                if q:
-                    result.append(q)
-            except Exception as e:
-                print(f"[warn] index {sym} failed: {e}")
-        else:
-            q = fetch_twse_quote(sym, name)
+        for name, sym in symbols_dict.items():
+            if sym.startswith("^"):
+                # 加權/櫃買 → 用 yfinance
+                q = fetch_yf_one(sym, name)
+            else:
+                # 個股 → 用 TWSE，失敗 fallback 到 yfinance
+                q = fetch_twse_quote(sym, name)
+                if not q:
+                    q = fetch_yf_one(sym + ".TW", name)
             if q:
                 result.append(q)
             else:
-                # fallback to yfinance
-                try:
-                    hist = yf.Ticker(sym + ".TW").history(period="60d")
-                    q = _build_quote(name, sym + ".TW", hist)
-                    if q:
-                        result.append(q)
-                except Exception:
-                    pass
+                print(f"[warn] 無法取得 {name}")
+        return result
+
+    # 美股、總經：都走 yfinance 單一查詢
+    for name, sym in symbols_dict.items():
+        q = fetch_yf_one(sym, name)
+        if q:
+            result.append(q)
+        else:
+            print(f"[warn] 無法取得 {name}({sym})")
     return result
 
 
