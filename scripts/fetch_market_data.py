@@ -77,23 +77,34 @@ def calc_ma(closes, period):
 
 
 def fetch_yf_one(symbol, name):
+    """用 Yahoo Finance chart API 抓即時價（含今天盤中）。"""
     try:
-        t = yf.Ticker(symbol)
-        hist = t.history(period="60d", auto_adjust=True)
-        if hist is None or hist.empty or len(hist) < 2:
-            return None
-        hist = hist.dropna(subset=["Close"])
-        if len(hist) < 2:
+        chart_url = f"https://query1.finance.yahoo.com/v8/finance/chart/{symbol}?interval=1d&range=60d"
+        r = requests.get(chart_url, timeout=15, headers={"User-Agent": "Mozilla/5.0"})
+        j = r.json()
+        result = j.get("chart", {}).get("result", [])
+        if not result:
             return None
 
-        closes = [float(x) for x in hist["Close"].tolist()]
-        highs = [float(x) for x in hist["High"].tolist()]
-        lows = [float(x) for x in hist["Low"].tolist()]
-        volumes = [float(x) for x in hist["Volume"].tolist()] if "Volume" in hist.columns else []
+        meta = result[0].get("meta", {})
+        quote = result[0].get("indicators", {}).get("quote", [{}])[0]
 
-        last = closes[-1]
-        prev = closes[-2]
+        last = _safe_num(meta.get("regularMarketPrice"))
+        prev = _safe_num(meta.get("chartPreviousClose"))
+        if last is None or prev is None:
+            return None
+
         pct = (last - prev) / prev * 100 if prev else 0.0
+        today_high = _safe_num(meta.get("regularMarketDayHigh")) or last
+        today_low = _safe_num(meta.get("regularMarketDayLow")) or last
+
+        closes_raw = quote.get("close", [])
+        closes = [float(x) for x in closes_raw if x is not None]
+        if closes:
+            closes[-1] = last  # 把最後一筆改成即時價
+
+        volumes_raw = quote.get("volume", [])
+        volumes = [float(x) for x in volumes_raw if x is not None]
 
         vol_ratio = None
         if len(volumes) >= 6:
@@ -104,7 +115,7 @@ def fetch_yf_one(symbol, name):
         return {
             "name": name, "symbol": symbol,
             "price": round(last, 2), "change": round(last - prev, 2), "pct": round(pct, 2),
-            "high": round(highs[-1], 2), "low": round(lows[-1], 2),
+            "high": round(today_high, 2), "low": round(today_low, 2),
             "ma5": calc_ma(closes, 5), "ma10": calc_ma(closes, 10), "ma20": calc_ma(closes, 20),
             "rsi": calc_rsi(closes, 14), "vol_ratio": vol_ratio,
         }
@@ -113,108 +124,24 @@ def fetch_yf_one(symbol, name):
         return None
 
 
-def fetch_twse_quote(stock_id, name):
-    try:
-        today = date.today().strftime("%Y%m%d")
-        url = f"https://www.twse.com.tw/rwd/zh/afterTrading/STOCK_DAY?date={today}&stockNo={stock_id}&response=json"
-        r = requests.get(url, timeout=15, headers={"User-Agent": "Mozilla/5.0"})
-        data = r.json()
-        if data.get("stat") != "OK" or not data.get("data"):
-            return None
-        rows = data["data"]
-        last_row = rows[-1]
-
-        def parse_num(s):
-            return float(str(s).replace(",", "").replace("+", "").replace("X", "").strip())
-
-        close = parse_num(last_row[6])
-        high = parse_num(last_row[4])
-        low = parse_num(last_row[5])
-        change_str = str(last_row[7]).replace(",", "").strip()
-        change = parse_num(change_str)
-        if "-" in change_str:
-            change = -abs(change)
-        prev_close = close - change
-        pct = (change / prev_close * 100) if prev_close else 0.0
-
-        closes = []
-        for row in rows:
-            try:
-                closes.append(parse_num(row[6]))
-            except Exception:
-                pass
-
-        return {
-            "name": name, "symbol": stock_id,
-            "price": round(close, 2), "change": round(change, 2), "pct": round(pct, 2),
-            "high": round(high, 2), "low": round(low, 2),
-            "ma5": calc_ma(closes, 5), "ma10": calc_ma(closes, 10), "ma20": calc_ma(closes, 20),
-            "rsi": calc_rsi(closes, 14), "vol_ratio": None,
-        }
-    except Exception as e:
-        print(f"[warn] fetch_twse_quote({stock_id}) failed: {e}")
-        return None
-
-
-def fetch_twse_index(name):
-    try:
-        url = "https://openapi.twse.com.tw/v1/indicesReport/MI_5MINS_HIST"
-        r = requests.get(url, timeout=15, headers={"User-Agent": "Mozilla/5.0"})
-        data = r.json()
-        if not data or not isinstance(data, list):
-            return None
-        last = data[-1]
-        prev = data[-2] if len(data) >= 2 else None
-
-        def num(x):
-            return float(str(x).replace(",", ""))
-
-        close = num(last.get("ClosingIndex") or last.get("CloseIndex"))
-        high = num(last.get("HighestIndex") or last.get("HighIndex") or close)
-        low = num(last.get("LowestIndex") or last.get("LowIndex") or close)
-        open_ = num(last.get("OpeningIndex") or last.get("OpenIndex") or close)
-
-        prev_close = num(prev.get("ClosingIndex") or prev.get("CloseIndex")) if prev else open_
-        change = close - prev_close
-        pct = (change / prev_close * 100) if prev_close else 0.0
-
-        closes = []
-        for row in data[-60:]:
-            try:
-                closes.append(num(row.get("ClosingIndex") or row.get("CloseIndex")))
-            except Exception:
-                pass
-
-        return {
-            "name": name, "symbol": "^TWII",
-            "price": round(close, 2), "change": round(change, 2), "pct": round(pct, 2),
-            "high": round(high, 2), "low": round(low, 2),
-            "ma5": calc_ma(closes, 5), "ma10": calc_ma(closes, 10), "ma20": calc_ma(closes, 20),
-            "rsi": calc_rsi(closes, 14), "vol_ratio": None,
-        }
-    except Exception as e:
-        print(f"[warn] fetch_twse_index failed: {e}")
-        return None
-
-
 def fetch_group(symbols_dict):
     result = []
     if symbols_dict is TW_SYMBOLS:
         for name, sym in symbols_dict.items():
-            if sym == "^TWII":
-                q = fetch_twse_index(name) or fetch_yf_one(sym, name)
-            elif sym == "^TWOII":
-                q = fetch_yf_one(sym, name)
-            else:
-                q = fetch_twse_quote(sym, name) or fetch_yf_one(sym + ".TW", name)
+            yf_sym = sym if sym.startswith("^") else f"{sym}.TW"
+            q = fetch_yf_one(yf_sym, name)
             if q:
                 result.append(q)
+            else:
+                print(f"[warn] 無法取得 {name}")
         return result
 
     for name, sym in symbols_dict.items():
         q = fetch_yf_one(sym, name)
         if q:
             result.append(q)
+        else:
+            print(f"[warn] 無法取得 {name}({sym})")
     return result
 
 
