@@ -37,15 +37,17 @@ MACRO_SYMBOLS = {
     "USD/TWD": "TWD=X",
 }
 
+ALL_SYMBOLS = {**TW_SYMBOLS, **US_SYMBOLS, **MACRO_SYMBOLS}
+
+_cache = {}
+
 
 def calc_rsi(closes, period=14):
-    """計算 RSI。"""
     if len(closes) < period + 1:
         return None
-    gains = []
-    losses = []
+    gains, losses = [], []
     for i in range(1, len(closes)):
-        diff = closes[i] - closes[i-1]
+        diff = closes[i] - closes[i - 1]
         gains.append(max(diff, 0))
         losses.append(max(-diff, 0))
     avg_gain = sum(gains[-period:]) / period
@@ -57,88 +59,105 @@ def calc_rsi(closes, period=14):
 
 
 def calc_ma(closes, period):
-    """計算均線。"""
     if len(closes) < period:
         return None
     return round(sum(closes[-period:]) / period, 2)
 
 
-def fetch_quote(symbol):
-    """抓取單一標的完整數據（含 RSI、MA、量能、最高最低）。"""
+def _build_quote(name, symbol, hist):
     try:
-        ticker = yf.Ticker(symbol)
-        hist = ticker.history(period="60d")  # 抓 60 天以便算均線和 RSI
-        if hist.empty or len(hist) < 2:
+        if hist is None or hist.empty or len(hist) < 2:
             return None
-
-        closes = hist["Close"].tolist()
-        highs = hist["High"].tolist()
-        lows = hist["Low"].tolist()
-        volumes = hist["Volume"].tolist() if "Volume" in hist else []
-
+        closes  = hist["Close"].tolist()
+        highs   = hist["High"].tolist()
+        lows    = hist["Low"].tolist()
+        volumes = hist["Volume"].tolist() if "Volume" in hist.columns else []
         last = float(closes[-1])
         prev = float(closes[-2])
-        pct = (last - prev) / prev * 100 if prev else 0.0
-
-        # 今日最高最低
-        today_high = round(float(highs[-1]), 2)
-        today_low = round(float(lows[-1]), 2)
-
-        # 均線
-        ma5 = calc_ma(closes, 5)
-        ma10 = calc_ma(closes, 10)
-        ma20 = calc_ma(closes, 20)
-
-        # RSI
-        rsi = calc_rsi(closes, 14)
-
-        # 量能倍數（今日量 / 5 日均量）
+        pct  = (last - prev) / prev * 100 if prev else 0.0
         vol_ratio = None
         if len(volumes) >= 6:
             avg_vol = sum(volumes[-6:-1]) / 5
             if avg_vol > 0:
                 vol_ratio = round(volumes[-1] / avg_vol, 2)
-
         return {
-            "symbol": symbol,
-            "price": round(last, 2),
-            "change": round(last - prev, 2),
-            "pct": round(pct, 2),
-            "high": today_high,
-            "low": today_low,
-            "ma5": ma5,
-            "ma10": ma10,
-            "ma20": ma20,
-            "rsi": rsi,
+            "name":      name,
+            "symbol":    symbol,
+            "price":     round(last, 2),
+            "change":    round(last - prev, 2),
+            "pct":       round(pct, 2),
+            "high":      round(float(highs[-1]), 2),
+            "low":       round(float(lows[-1]), 2),
+            "ma5":       calc_ma(closes, 5),
+            "ma10":      calc_ma(closes, 10),
+            "ma20":      calc_ma(closes, 20),
+            "rsi":       calc_rsi(closes, 14),
             "vol_ratio": vol_ratio,
         }
     except Exception as e:
-        print(f"[warn] fetch_quote({symbol}) failed: {e}")
+        print(f"[warn] _build_quote({symbol}) failed: {e}")
         return None
 
 
-def fetch_group(symbols):
+def _ensure_cache(symbols_dict):
+    global _cache
+    if _cache:
+        return
+    all_syms = list(symbols_dict.values())
+    print(f"[fetch] batch download {len(all_syms)} symbols...")
+    try:
+        raw = yf.download(
+            tickers=all_syms,
+            period="60d",
+            interval="1d",
+            group_by="ticker",
+            auto_adjust=True,
+            progress=False,
+            threads=True,
+            timeout=30,
+        )
+        for sym in all_syms:
+            try:
+                if len(all_syms) == 1:
+                    _cache[sym] = raw
+                else:
+                    _cache[sym] = raw[sym] if sym in raw.columns.get_level_values(0) else None
+            except Exception:
+                _cache[sym] = None
+        print(f"[fetch] batch download 完成")
+    except Exception as e:
+        print(f"[warn] batch download 失敗，改用逐一模式: {e}")
+        for sym in all_syms:
+            try:
+                _cache[sym] = yf.Ticker(sym).history(period="60d")
+            except Exception as e2:
+                print(f"[warn] fallback {sym} failed: {e2}")
+                _cache[sym] = None
+
+
+def fetch_group(symbols_dict):
+    _ensure_cache(ALL_SYMBOLS)
     result = []
-    for name, sym in symbols.items():
-        q = fetch_quote(sym)
+    for name, sym in symbols_dict.items():
+        q = _build_quote(name, sym, _cache.get(sym))
         if q:
-            q["name"] = name
             result.append(q)
+        else:
+            print(f"[warn] 無法取得 {name} ({sym})")
     return result
 
 
 def format_quote_line(item):
     arrow = "▲" if item["pct"] >= 0 else "▼"
-    sign = "+" if item["pct"] >= 0 else ""
+    sign  = "+" if item["pct"] >= 0 else ""
     return f"{item['name']} {item['price']:,.2f} {arrow} {sign}{item['pct']:.2f}%"
 
 
 def snapshot():
-    tw = fetch_group(TW_SYMBOLS)
-    us = fetch_group(US_SYMBOLS)
+    tw    = fetch_group(TW_SYMBOLS)
+    us    = fetch_group(US_SYMBOLS)
     macro = fetch_group(MACRO_SYMBOLS)
 
-    # 完整的行情文字（含技術指標，給 AI 用）
     def full_line(item):
         base = format_quote_line(item)
         tech = []
@@ -152,14 +171,14 @@ def snapshot():
             tech.append(f"RSI={item['rsi']}")
         if item.get("vol_ratio"):
             tech.append(f"量比={item['vol_ratio']}")
-        if tech:
-            return f"{base} [{' '.join(tech)}]"
-        return base
+        return f"{base} [{' '.join(tech)}]" if tech else base
 
     return {
-        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M"),
-        "tw": tw, "us": us, "macro": macro,
-        "tw_text": "\n".join(full_line(x) for x in tw),
-        "us_text": "\n".join(full_line(x) for x in us),
+        "timestamp":  datetime.now().strftime("%Y-%m-%d %H:%M"),
+        "tw":         tw,
+        "us":         us,
+        "macro":      macro,
+        "tw_text":    "\n".join(full_line(x) for x in tw),
+        "us_text":    "\n".join(full_line(x) for x in us),
         "macro_text": "\n".join(format_quote_line(x) for x in macro),
     }
