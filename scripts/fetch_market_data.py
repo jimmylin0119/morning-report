@@ -41,7 +41,6 @@ MACRO_SYMBOLS = {
 
 
 def _safe_num(x):
-    """把 NaN、None 轉成 None，其他保留數字。"""
     try:
         if x is None:
             return None
@@ -78,22 +77,20 @@ def calc_ma(closes, period):
 
 
 def fetch_yf_one(symbol, name):
-    """單一 symbol 用 yf.Ticker 抓，避開 batch download 的問題。"""
+    """單一 symbol 用 yf.Ticker 抓。"""
     try:
         t = yf.Ticker(symbol)
         hist = t.history(period="60d", auto_adjust=True)
         if hist is None or hist.empty or len(hist) < 2:
             print(f"[warn] {name}({symbol}) 無資料")
             return None
-
-        # 清掉 NaN 的列
         hist = hist.dropna(subset=["Close"])
         if len(hist) < 2:
             return None
 
-        closes = [float(x) for x in hist["Close"].tolist()]
-        highs  = [float(x) for x in hist["High"].tolist()]
-        lows   = [float(x) for x in hist["Low"].tolist()]
+        closes  = [float(x) for x in hist["Close"].tolist()]
+        highs   = [float(x) for x in hist["High"].tolist()]
+        lows    = [float(x) for x in hist["Low"].tolist()]
         volumes = [float(x) for x in hist["Volume"].tolist()] if "Volume" in hist.columns else []
 
         last = closes[-1]
@@ -126,7 +123,7 @@ def fetch_yf_one(symbol, name):
 
 
 def fetch_twse_quote(stock_id, name):
-    """從證交所抓個股資料。欄位順序：日期,股數,金額,開,高,低,收,漲跌,筆數"""
+    """從證交所抓個股。欄位：日期,股數,金額,開,高,低,收,漲跌,筆數"""
     try:
         today = date.today().strftime("%Y%m%d")
         url = f"https://www.twse.com.tw/rwd/zh/afterTrading/STOCK_DAY?date={today}&stockNo={stock_id}&response=json"
@@ -140,11 +137,10 @@ def fetch_twse_quote(stock_id, name):
         def parse_num(s):
             return float(str(s).replace(",", "").replace("+", "").replace("X", "").strip())
 
-        close  = parse_num(last_row[6])
-        high   = parse_num(last_row[4])
-        low    = parse_num(last_row[5])
+        close = parse_num(last_row[6])
+        high  = parse_num(last_row[4])
+        low   = parse_num(last_row[5])
         change_str = str(last_row[7]).replace(",", "").strip()
-        # 漲跌可能含 "+" 或 "-"，先處理正負號
         change = parse_num(change_str)
         if change_str.startswith("-") or "-" in change_str:
             change = -abs(change)
@@ -177,16 +173,70 @@ def fetch_twse_quote(stock_id, name):
         return None
 
 
+def fetch_twse_index(name):
+    """抓加權指數，TWSE 官方 Open API。"""
+    try:
+        url = "https://openapi.twse.com.tw/v1/indicesReport/MI_5MINS_HIST"
+        r = requests.get(url, timeout=15, headers={"User-Agent": "Mozilla/5.0"})
+        data = r.json()
+        if not data or not isinstance(data, list):
+            return None
+        last = data[-1]
+        prev = data[-2] if len(data) >= 2 else None
+
+        def num(x):
+            return float(str(x).replace(",", ""))
+
+        close = num(last.get("ClosingIndex") or last.get("CloseIndex"))
+        high  = num(last.get("HighestIndex") or last.get("HighIndex") or close)
+        low   = num(last.get("LowestIndex") or last.get("LowIndex") or close)
+        open_ = num(last.get("OpeningIndex") or last.get("OpenIndex") or close)
+
+        if prev:
+            prev_close = num(prev.get("ClosingIndex") or prev.get("CloseIndex"))
+        else:
+            prev_close = open_
+        change = close - prev_close
+        pct = (change / prev_close * 100) if prev_close else 0.0
+
+        closes = []
+        for row in data[-60:]:
+            try:
+                closes.append(num(row.get("ClosingIndex") or row.get("CloseIndex")))
+            except Exception:
+                pass
+
+        return {
+            "name":      name,
+            "symbol":    "^TWII",
+            "price":     round(close, 2),
+            "change":    round(change, 2),
+            "pct":       round(pct, 2),
+            "high":      round(high, 2),
+            "low":       round(low, 2),
+            "ma5":       calc_ma(closes, 5),
+            "ma10":      calc_ma(closes, 10),
+            "ma20":      calc_ma(closes, 20),
+            "rsi":       calc_rsi(closes, 14),
+            "vol_ratio": None,
+        }
+    except Exception as e:
+        print(f"[warn] fetch_twse_index failed: {e}")
+        return None
+
+
 def fetch_group(symbols_dict):
     result = []
-    # 台股：指數走 yfinance，個股走 TWSE
+    # 台股：加權用 TWSE Open API，個股用 TWSE STOCK_DAY，櫃買 fallback yfinance
     if symbols_dict is TW_SYMBOLS:
         for name, sym in symbols_dict.items():
-            if sym.startswith("^"):
-                # 加權/櫃買 → 用 yfinance
+            if sym == "^TWII":
+                q = fetch_twse_index(name)
+                if not q:
+                    q = fetch_yf_one(sym, name)
+            elif sym == "^TWOII":
                 q = fetch_yf_one(sym, name)
             else:
-                # 個股 → 用 TWSE，失敗 fallback 到 yfinance
                 q = fetch_twse_quote(sym, name)
                 if not q:
                     q = fetch_yf_one(sym + ".TW", name)
@@ -196,7 +246,7 @@ def fetch_group(symbols_dict):
                 print(f"[warn] 無法取得 {name}")
         return result
 
-    # 美股、總經：都走 yfinance 單一查詢
+    # 美股、總經：走 yfinance 單一查詢
     for name, sym in symbols_dict.items():
         q = fetch_yf_one(sym, name)
         if q:
