@@ -1,17 +1,18 @@
 import yfinance as yf
-from datetime import datetime
+import requests
+from datetime import datetime, date
 
 TW_SYMBOLS = {
     "加權指數": "^TWII",
     "櫃買指數": "^TWOII",
-    "台積電": "2330.TW",
-    "鴻海": "2317.TW",
-    "聯發科": "2454.TW",
-    "廣達": "2382.TW",
-    "緯創": "3231.TW",
-    "長榮": "2603.TW",
-    "大立光": "3008.TW",
-    "聯電": "2303.TW",
+    "台積電": "2330",
+    "鴻海": "2317",
+    "聯發科": "2454",
+    "廣達": "2382",
+    "緯創": "3231",
+    "長榮": "2603",
+    "大立光": "3008",
+    "聯電": "2303",
 }
 
 US_SYMBOLS = {
@@ -37,7 +38,7 @@ MACRO_SYMBOLS = {
     "USD/TWD": "TWD=X",
 }
 
-ALL_SYMBOLS = {**TW_SYMBOLS, **US_SYMBOLS, **MACRO_SYMBOLS}
+ALL_SYMBOLS = {**US_SYMBOLS, **MACRO_SYMBOLS}
 
 _cache = {}
 
@@ -135,7 +136,85 @@ def _ensure_cache(symbols_dict):
                 _cache[sym] = None
 
 
+# ── 台股：改用 TWSE 官方 API 抓最新資料 ──
+def fetch_twse_quote(stock_id, name):
+    """從台灣證交所官方 API 抓個股即時資料。"""
+    try:
+        today = date.today().strftime("%Y%m%d")
+        url = f"https://www.twse.com.tw/rwd/zh/afterTrading/STOCK_DAY?date={today}&stockNo={stock_id}&response=json"
+        r = requests.get(url, timeout=10, headers={"User-Agent": "Mozilla/5.0"})
+        data = r.json()
+        if data.get("stat") != "OK" or not data.get("data"):
+            return None
+        rows = data["data"]
+        # 最後一筆是最新交易日
+        last_row = rows[-1]
+        prev_row = rows[-2] if len(rows) >= 2 else None
+        # 欄位：日期,成交股數,成交金額,開盤價,最高價,最低價,收盤價,漲跌價差,成交筆數
+        close = float(last_row[6].replace(",", ""))
+        high  = float(last_row[4].replace(",", ""))
+        low   = float(last_row[5].replace(",", ""))
+        open_ = float(last_row[3].replace(",", ""))
+        change = float(last_row[7].replace(",", "").replace("+", ""))
+        prev_close = close - change
+        pct = (change / prev_close * 100) if prev_close else 0.0
+        closes = [float(row[6].replace(",", "")) for row in rows]
+        return {
+            "name":      name,
+            "symbol":    stock_id,
+            "price":     close,
+            "change":    round(change, 2),
+            "pct":       round(pct, 2),
+            "high":      high,
+            "low":       low,
+            "ma5":       calc_ma(closes, 5),
+            "ma10":      calc_ma(closes, 10),
+            "ma20":      calc_ma(closes, 20),
+            "rsi":       calc_rsi(closes, 14),
+            "vol_ratio": None,
+        }
+    except Exception as e:
+        print(f"[warn] fetch_twse_quote({stock_id}) failed: {e}")
+        return None
+
+
+def fetch_twse_index(name):
+    """從 TWSE 抓加權/櫃買指數。"""
+    try:
+        url = "https://www.twse.com.tw/rwd/zh/afterTrading/MI_INDEX?response=json"
+        r = requests.get(url, timeout=10, headers={"User-Agent": "Mozilla/5.0"})
+        data = r.json()
+        # 找 "大盤統計資訊" 表
+        for table in data.get("tables", []):
+            for row in table.get("data", []):
+                if "發行量加權股價指數" in str(row):
+                    try:
+                        price = float(str(row[1]).replace(",", ""))
+                        change = float(str(row[2]).replace(",", ""))
+                        prev = price - change
+                        pct = (change / prev * 100) if prev else 0.0
+                        return {
+                            "name":   name,
+                            "symbol": "^TWII",
+                            "price":  round(price, 2),
+                            "change": round(change, 2),
+                            "pct":    round(pct, 2),
+                            "high": None, "low": None,
+                            "ma5": None, "ma10": None, "ma20": None,
+                            "rsi": None, "vol_ratio": None,
+                        }
+                    except Exception:
+                        pass
+        return None
+    except Exception as e:
+        print(f"[warn] fetch_twse_index failed: {e}")
+        return None
+
+
 def fetch_group(symbols_dict):
+    # 台股走 TWSE API，美股+總經走 yfinance
+    if symbols_dict is TW_SYMBOLS:
+        return fetch_tw_group()
     _ensure_cache(ALL_SYMBOLS)
     result = []
     for name, sym in symbols_dict.items():
@@ -144,6 +223,35 @@ def fetch_group(symbols_dict):
             result.append(q)
         else:
             print(f"[warn] 無法取得 {name} ({sym})")
+    return result
+
+
+def fetch_tw_group():
+    """台股全部走 TWSE 官方 API。"""
+    result = []
+    for name, sym in TW_SYMBOLS.items():
+        if sym in ("^TWII", "^TWOII"):
+            # 指數用 yfinance fallback
+            try:
+                hist = yf.Ticker(sym).history(period="60d")
+                q = _build_quote(name, sym, hist)
+                if q:
+                    result.append(q)
+            except Exception as e:
+                print(f"[warn] index {sym} failed: {e}")
+        else:
+            q = fetch_twse_quote(sym, name)
+            if q:
+                result.append(q)
+            else:
+                # fallback to yfinance
+                try:
+                    hist = yf.Ticker(sym + ".TW").history(period="60d")
+                    q = _build_quote(name, sym + ".TW", hist)
+                    if q:
+                        result.append(q)
+                except Exception:
+                    pass
     return result
 
 
