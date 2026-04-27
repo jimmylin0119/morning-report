@@ -1,7 +1,7 @@
 import yfinance as yf
 import requests
 import math
-from datetime import datetime, date, timedelta
+from datetime import datetime, date
 
 TW_SYMBOLS = {
     "加權指數": "^TWII",
@@ -37,6 +37,11 @@ MACRO_SYMBOLS = {
     "布蘭特原油": "BZ=F",
     "黃金": "GC=F",
     "USD/TWD": "TWD=X",
+}
+
+MIS_HEADERS = {
+    "User-Agent": "Mozilla/5.0",
+    "Referer": "https://mis.twse.com.tw/stock/index.jsp"
 }
 
 
@@ -115,44 +120,105 @@ def fetch_yf_one(symbol, name):
             "ma10":      calc_ma(closes, 10),
             "ma20":      calc_ma(closes, 20),
             "rsi":       calc_rsi(closes, 14),
-            "vol_ratio": vol_ratio,
+            "vol_ratio": volratio_safe(vol_ratio),
         }
     except Exception as e:
         print(f"[warn] fetch_yf_one({symbol}) failed: {e}")
         return None
 
 
-def fetch_twse_quote(stock_id, name):
-    """從證交所抓個股。欄位：日期,股數,金額,開,高,低,收,漲跌,筆數"""
+def volratio_safe(v):
+    if v is None or _safe_num(v) is None:
+        return None
+    return v
+
+
+def fetch_mis_realtime(ex_ch):
+    """從 TWSE MIS API 取得即時盤中報價。
+    回傳 (price, prev_close, high, low) 或 None。"""
     try:
+        url = f"https://mis.twse.com.tw/stock/api/getStockInfo.jsp?ex_ch={ex_ch}&json=1"
+        r = requests.get(url, timeout=10, headers=MIS_HEADERS)
+        data = r.json()
+        if not data.get("msgArray"):
+            return None
+        s = data["msgArray"][0]
+
+        def to_f(key):
+            v = s.get(key)
+            if v is None or v == "-" or v == "":
+                return None
+            try:
+                return float(v)
+            except Exception:
+                return None
+
+        price = to_f("z")
+        prev  = to_f("y")
+        high  = to_f("h")
+        low   = to_f("l")
+
+        # z 為 "-" 表示尚未開盤，回退用 o（開盤）或最近成交
+        if price is None:
+            price = to_f("o") or to_f("u") or to_f("d")
+        return (price, prev, high, low)
+    except Exception as e:
+        print(f"[warn] MIS {ex_ch} failed: {e}")
+        return None
+
+
+def fetch_twse_quote(stock_id, name):
+    """抓個股：即時用 MIS，歷史用 STOCK_DAY。"""
+    try:
+        # 即時報價
+        live = fetch_mis_realtime(f"tse_{stock_id}.tw")
+        live_price = prev_close = live_high = live_low = None
+        if live:
+            live_price, prev_close, live_high, live_low = live
+
+        # 歷史 60 日（用來算 MA / RSI）
         today = date.today().strftime("%Y%m%d")
         url = f"https://www.twse.com.tw/rwd/zh/afterTrading/STOCK_DAY?date={today}&stockNo={stock_id}&response=json"
         r = requests.get(url, timeout=15, headers={"User-Agent": "Mozilla/5.0"})
         data = r.json()
-        if data.get("stat") != "OK" or not data.get("data"):
-            return None
-        rows = data["data"]
-        last_row = rows[-1]
-
-        def parse_num(s):
-            return float(str(s).replace(",", "").replace("+", "").replace("X", "").strip())
-
-        close = parse_num(last_row[6])
-        high  = parse_num(last_row[4])
-        low   = parse_num(last_row[5])
-        change_str = str(last_row[7]).replace(",", "").strip()
-        change = parse_num(change_str)
-        if change_str.startswith("-") or "-" in change_str:
-            change = -abs(change)
-        prev_close = close - change
-        pct = (change / prev_close * 100) if prev_close else 0.0
 
         closes = []
-        for row in rows:
+        last_close = last_change = last_high = last_low = None
+        if data.get("stat") == "OK" and data.get("data"):
+            rows = data["data"]
+            for row in rows:
+                try:
+                    closes.append(float(str(row[6]).replace(",", "")))
+                except Exception:
+                    pass
+            last_row = rows[-1]
             try:
-                closes.append(parse_num(row[6]))
+                last_close = float(str(last_row[6]).replace(",", ""))
+                last_high  = float(str(last_row[4]).replace(",", ""))
+                last_low   = float(str(last_row[5]).replace(",", ""))
+                cs = str(last_row[7]).replace(",", "").strip()
+                last_change = float(cs.replace("+", "").replace("-", "").replace("X", ""))
+                if cs.startswith("-"):
+                    last_change = -abs(last_change)
             except Exception:
                 pass
+
+        # 優先即時，沒有再用收盤
+        if live_price is not None and prev_close:
+            close = live_price
+            change = round(close - prev_close, 2)
+            pct = round(change / prev_close * 100, 2) if prev_close else 0.0
+            high = live_high if live_high else close
+            low  = live_low  if live_low  else close
+        elif last_close is not None:
+            close = last_close
+            change = last_change if last_change is not None else 0
+            denom = close - change
+            pct = round(change / denom * 100, 2) if denom else 0.0
+            high = last_high if last_high else close
+            low  = last_low  if last_low  else close
+        else:
+            return None
 
         return {
             "name":      name,
@@ -174,38 +240,54 @@ def fetch_twse_quote(stock_id, name):
 
 
 def fetch_twse_index(name):
-    """抓加權指數，使用 TWSE FMTQIK API（大盤每日成交資訊）。
-    欄位：日期, 成交股數, 成交金額, 成交筆數, 加權指數, 漲跌點數"""
+    """抓加權指數：即時用 MIS（tse_t00.tw），歷史用 FMTQIK。"""
     try:
-        # FMTQIK 提供當月每日大盤資料
-        today = date.today()
-        url = f"https://www.twse.com.tw/rwd/zh/afterTrading/FMTQIK?date={today.strftime('%Y%m%d')}&response=json"
+        # 即時加權指數
+        live = fetch_mis_realtime("tse_t00.tw")
+        live_price = prev_close = live_high = live_low = None
+        if live:
+            live_price, prev_close, live_high, live_low = live
+
+        # 歷史
+        today = date.today().strftime("%Y%m%d")
+        url = f"https://www.twse.com.tw/rwd/zh/afterTrading/FMTQIK?date={today}&response=json"
         r = requests.get(url, timeout=15, headers={"User-Agent": "Mozilla/5.0"})
         data = r.json()
-        if data.get("stat") != "OK" or not data.get("data"):
-            print(f"[warn] FMTQIK 無資料，fallback 到 yfinance")
-            return fetch_yf_one("^TWII", name)
-
-        rows = data["data"]
-        last = rows[-1]
-
-        def num(x):
-            return float(str(x).replace(",", ""))
-
-        close = num(last[4])  # 加權指數收盤
-        change_str = str(last[5]).strip()
-        change = num(change_str.replace("+", "").replace("-", ""))
-        if change_str.startswith("-"):
-            change = -abs(change)
-        prev_close = close - change
-        pct = (change / prev_close * 100) if prev_close else 0.0
 
         closes = []
-        for row in rows:
+        last_close = last_change = None
+        if data.get("stat") == "OK" and data.get("data"):
+            rows = data["data"]
+            for row in rows:
+                try:
+                    closes.append(float(str(row[4]).replace(",", "")))
+                except Exception:
+                    pass
+            last_row = rows[-1]
             try:
-                closes.append(num(row[4]))
+                last_close = float(str(last_row[4]).replace(",", ""))
+                cs = str(last_row[5]).strip()
+                last_change = float(cs.replace("+", "").replace("-", "").replace(",", ""))
+                if cs.startswith("-"):
+                    last_change = -abs(last_change)
             except Exception:
                 pass
+
+        if live_price is not None and prev_close:
+            close = live_price
+            change = round(close - prev_close, 2)
+            pct = round(change / prev_close * 100, 2) if prev_close else 0.0
+            high = live_high if live_high else close
+            low  = live_low  if live_low  else close
+        elif last_close is not None:
+            close = last_close
+            change = last_change if last_change is not None else 0
+            denom = close - change
+            pct = round(change / denom * 100, 2) if denom else 0.0
+            high = close
+            low = close
+        else:
+            return fetch_yf_one("^TWII", name)
 
         return {
             "name":      name,
@@ -213,8 +295,8 @@ def fetch_twse_index(name):
             "price":     round(close, 2),
             "change":    round(change, 2),
             "pct":       round(pct, 2),
-            "high":      round(close, 2),
-            "low":       round(close, 2),
+            "high":      round(high, 2),
+            "low":       round(low, 2),
             "ma5":       calc_ma(closes, 5),
             "ma10":      calc_ma(closes, 10),
             "ma20":      calc_ma(closes, 20),
@@ -228,7 +310,6 @@ def fetch_twse_index(name):
 
 def fetch_group(symbols_dict):
     result = []
-    # 台股：加權用 TWSE FMTQIK，個股用 TWSE STOCK_DAY，櫃買 fallback yfinance
     if symbols_dict is TW_SYMBOLS:
         for name, sym in symbols_dict.items():
             if sym == "^TWII":
@@ -245,7 +326,6 @@ def fetch_group(symbols_dict):
                 print(f"[warn] 無法取得 {name}")
         return result
 
-    # 美股、總經：走 yfinance 單一查詢
     for name, sym in symbols_dict.items():
         q = fetch_yf_one(sym, name)
         if q:
