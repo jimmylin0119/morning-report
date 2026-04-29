@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-04-30 05:43:18",
-  "updated_ts": 1777498998,
+  "updated_at": "2026-04-30 05:58:45",
+  "updated_ts": 1777499925,
   "market_status": "盤後時段",
   "tw": [
     {
@@ -318,15 +318,15 @@
     {
       "name": "美元指數 DXY",
       "symbol": "DX-Y.NYB",
-      "price": 98.93,
-      "change": 0.31,
-      "pct": 0.32,
+      "price": 98.92,
+      "change": 0.3,
+      "pct": 0.31,
       "high": 99.05,
       "low": 98.57,
       "ma5": 98.67,
       "ma10": 98.47,
       "ma20": 98.76,
-      "rsi": 52.1,
+      "rsi": 52.0,
       "vol_ratio": null
     },
     {
@@ -590,15 +590,15 @@
     "dxy": {
       "name": "美元指數 DXY",
       "symbol": "DX-Y.NYB",
-      "price": 98.93,
-      "change": 0.31,
-      "pct": 0.32,
+      "price": 98.92,
+      "change": 0.3,
+      "pct": 0.31,
       "high": 99.05,
       "low": 98.57,
       "ma5": 98.67,
       "ma10": 98.47,
       "ma20": 98.76,
-      "rsi": 52.1,
+      "rsi": 52.0,
       "vol_ratio": null
     },
     "gold": {
