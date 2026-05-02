@@ -13,7 +13,7 @@ from fetch_market_data import snapshot
 from send_telegram import send_messages
 
 GEMINI_MODEL = "gemini-flash-latest"
-MORNING_URL = "https://jimmylin-strategy.netlify.app/"
+MORNING_URL = "MORNING_URL = "https://jimmylin-ai-stock-analysis.netlify.app/"
 TW_TZ = timezone(timedelta(hours=8))
 
 # 新聞 RSS 來源
