@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-06-13 05:19:54",
-  "updated_ts": 1781299194,
+  "updated_at": "2026-06-13 06:24:42",
+  "updated_ts": 1781303082,
   "market_status": "週末休市",
   "tw": [
     {
@@ -375,14 +375,14 @@
       "name": "USD/TWD",
       "symbol": "TWD=X",
       "price": 31.61,
-      "change": 0.03,
-      "pct": 0.1,
+      "change": -0.04,
+      "pct": -0.13,
       "high": 31.68,
       "low": 31.55,
       "ma5": 31.59,
-      "ma10": 31.54,
+      "ma10": 31.52,
       "ma20": 31.52,
-      "rsi": 61.9,
+      "rsi": 63.7,
       "vol_ratio": null
     }
   ],
@@ -633,14 +633,14 @@
       "name": "USD/TWD",
       "symbol": "TWD=X",
       "price": 31.61,
-      "change": 0.03,
-      "pct": 0.1,
+      "change": -0.04,
+      "pct": -0.13,
       "high": 31.68,
       "low": 31.55,
       "ma5": 31.59,
-      "ma10": 31.54,
+      "ma10": 31.52,
       "ma20": 31.52,
-      "rsi": 61.9,
+      "rsi": 63.7,
       "vol_ratio": null
     },
     "us10y": {
