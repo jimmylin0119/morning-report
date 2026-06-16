@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-06-17 05:39:03",
-  "updated_ts": 1781645943,
+  "updated_at": "2026-06-17 06:52:40",
+  "updated_ts": 1781650360,
   "market_status": "盤後時段",
   "tw": [
     {
@@ -33,21 +33,21 @@
     },
     {
       "name": "台積電",
-      "symbol": "2330",
+      "symbol": "2330.TW",
       "price": 2400.0,
       "change": 25.0,
       "pct": 1.05,
       "high": 2400.0,
       "low": 2350.0,
-      "ma5": 2318.0,
-      "ma10": 2336.5,
-      "ma20": null,
-      "rsi": null,
-      "vol_ratio": null
+      "ma5": 2316.8,
+      "ma10": 2332.77,
+      "ma20": 2310.08,
+      "rsi": 61.2,
+      "vol_ratio": 0.94
     },
     {
       "name": "鴻海",
-      "symbol": "2317",
+      "symbol": "2317.TW",
       "price": 269.0,
       "change": 1.5,
       "pct": 0.56,
@@ -55,9 +55,9 @@
       "low": 265.5,
       "ma5": 263.7,
       "ma10": 275.2,
-      "ma20": null,
-      "rsi": null,
-      "vol_ratio": null
+      "ma20": 271.02,
+      "rsi": 52.0,
+      "vol_ratio": 0.77
     },
     {
       "name": "聯發科",
@@ -75,7 +75,7 @@
     },
     {
       "name": "廣達",
-      "symbol": "2382",
+      "symbol": "2382.TW",
       "price": 362.5,
       "change": -7.5,
       "pct": -2.03,
@@ -83,9 +83,9 @@
       "low": 362.0,
       "ma5": 371.0,
       "ma10": 381.8,
-      "ma20": null,
-      "rsi": null,
-      "vol_ratio": null
+      "ma20": 354.88,
+      "rsi": 63.9,
+      "vol_ratio": 0.51
     },
     {
       "name": "緯創",
@@ -103,21 +103,21 @@
     },
     {
       "name": "長榮",
-      "symbol": "2603",
-      "price": 220.5,
-      "change": -4.0,
+      "symbol": "2603.TW",
+      "price": 204.5,
+      "change": -3.71,
       "pct": -1.78,
-      "high": 223.0,
-      "low": 219.0,
-      "ma5": 224.4,
-      "ma10": 227.3,
-      "ma20": null,
-      "rsi": null,
-      "vol_ratio": null
+      "high": 206.82,
+      "low": 203.11,
+      "ma5": 208.12,
+      "ma10": 210.81,
+      "ma20": 205.54,
+      "rsi": 58.2,
+      "vol_ratio": 1.52
     },
     {
       "name": "大立光",
-      "symbol": "3008",
+      "symbol": "3008.TW",
       "price": 4860.0,
       "change": 440.0,
       "pct": 9.95,
@@ -125,13 +125,13 @@
       "low": 4450.0,
       "ma5": 4319.0,
       "ma10": 4050.5,
-      "ma20": null,
-      "rsi": null,
-      "vol_ratio": null
+      "ma20": 3817.25,
+      "rsi": 75.0,
+      "vol_ratio": 0.84
     },
     {
       "name": "聯電",
-      "symbol": "2303",
+      "symbol": "2303.TW",
       "price": 141.0,
       "change": -0.5,
       "pct": -0.35,
@@ -139,9 +139,9 @@
       "low": 138.5,
       "ma5": 131.9,
       "ma10": 129.5,
-      "ma20": null,
-      "rsi": null,
-      "vol_ratio": null
+      "ma20": 130.3,
+      "rsi": 48.5,
+      "vol_ratio": 0.66
     }
   ],
   "us": [
@@ -318,15 +318,15 @@
     {
       "name": "美元指數 DXY",
       "symbol": "DX-Y.NYB",
-      "price": 99.53,
-      "change": -0.1,
-      "pct": -0.1,
+      "price": 99.54,
+      "change": -0.09,
+      "pct": -0.09,
       "high": 99.79,
       "low": 99.46,
-      "ma5": 99.74,
+      "ma5": 99.75,
       "ma10": 99.77,
       "ma20": 99.47,
-      "rsi": 56.8,
+      "rsi": 57.1,
       "vol_ratio": null
     },
     {
@@ -349,40 +349,40 @@
       "price": 79.46,
       "change": -3.71,
       "pct": -4.46,
-      "high": 83.8,
-      "low": 78.45,
+      "high": 79.71,
+      "low": 79.2,
       "ma5": 86.69,
       "ma10": 90.51,
       "ma20": 94.9,
       "rsi": 26.8,
-      "vol_ratio": 0.74
+      "vol_ratio": 0.0
     },
     {
       "name": "黃金",
       "symbol": "GC=F",
-      "price": 4353.0,
-      "change": 25.0,
-      "pct": 0.58,
-      "high": 4376.5,
-      "low": 4326.7,
-      "ma5": 4218.9,
-      "ma10": 4294.0,
-      "ma20": 4400.52,
+      "price": 4352.5,
+      "change": 24.5,
+      "pct": 0.57,
+      "high": 4355.3,
+      "low": 4348.7,
+      "ma5": 4218.8,
+      "ma10": 4293.95,
+      "ma20": 4400.49,
       "rsi": 45.0,
-      "vol_ratio": 72.12
+      "vol_ratio": 0.91
     },
     {
       "name": "USD/TWD",
       "symbol": "TWD=X",
       "price": 31.56,
-      "change": -0.06,
-      "pct": -0.18,
-      "high": 31.6,
-      "low": 31.47,
+      "change": -0.05,
+      "pct": -0.17,
+      "high": 31.56,
+      "low": 31.56,
       "ma5": 31.59,
       "ma10": 31.56,
       "ma20": 31.52,
-      "rsi": 57.4,
+      "rsi": 57.8,
       "vol_ratio": null
     }
   ],
@@ -431,7 +431,7 @@
     },
     {
       "sym": "長榮",
-      "price": "220.50",
+      "price": "204.50",
       "chg": "-1.78%",
       "dir": "down"
     },
@@ -590,30 +590,30 @@
     "dxy": {
       "name": "美元指數 DXY",
       "symbol": "DX-Y.NYB",
-      "price": 99.53,
-      "change": -0.1,
-      "pct": -0.1,
+      "price": 99.54,
+      "change": -0.09,
+      "pct": -0.09,
       "high": 99.79,
       "low": 99.46,
-      "ma5": 99.74,
+      "ma5": 99.75,
       "ma10": 99.77,
       "ma20": 99.47,
-      "rsi": 56.8,
+      "rsi": 57.1,
       "vol_ratio": null
     },
     "gold": {
       "name": "黃金",
       "symbol": "GC=F",
-      "price": 4353.0,
-      "change": 25.0,
-      "pct": 0.58,
-      "high": 4376.5,
-      "low": 4326.7,
-      "ma5": 4218.9,
-      "ma10": 4294.0,
-      "ma20": 4400.52,
+      "price": 4352.5,
+      "change": 24.5,
+      "pct": 0.57,
+      "high": 4355.3,
+      "low": 4348.7,
+      "ma5": 4218.8,
+      "ma10": 4293.95,
+      "ma20": 4400.49,
       "rsi": 45.0,
-      "vol_ratio": 72.12
+      "vol_ratio": 0.91
     },
     "oil": {
       "name": "布蘭特原油",
@@ -621,26 +621,26 @@
       "price": 79.46,
       "change": -3.71,
       "pct": -4.46,
-      "high": 83.8,
-      "low": 78.45,
+      "high": 79.71,
+      "low": 79.2,
       "ma5": 86.69,
       "ma10": 90.51,
       "ma20": 94.9,
       "rsi": 26.8,
-      "vol_ratio": 0.74
+      "vol_ratio": 0.0
     },
     "usd_twd": {
       "name": "USD/TWD",
       "symbol": "TWD=X",
       "price": 31.56,
-      "change": -0.06,
-      "pct": -0.18,
-      "high": 31.6,
-      "low": 31.47,
+      "change": -0.05,
+      "pct": -0.17,
+      "high": 31.56,
+      "low": 31.56,
       "ma5": 31.59,
       "ma10": 31.56,
       "ma20": 31.52,
-      "rsi": 57.4,
+      "rsi": 57.8,
       "vol_ratio": null
     },
     "us10y": {
