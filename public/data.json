@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-06-19 04:24:10",
-  "updated_ts": 1781814250,
-  "market_status": "美股開盤中",
+  "updated_at": "2026-06-19 06:29:12",
+  "updated_ts": 1781821752,
+  "market_status": "盤後時段",
   "tw": [
     {
       "name": "加權指數",
@@ -171,7 +171,7 @@
       "ma10": 25978.58,
       "ma20": 26375.48,
       "rsi": 45.6,
-      "vol_ratio": 1.63
+      "vol_ratio": 1.66
     },
     {
       "name": "Dow Jones",
@@ -185,7 +185,7 @@
       "ma10": 51122.26,
       "ma20": 50976.55,
       "rsi": 54.3,
-      "vol_ratio": 2.05
+      "vol_ratio": 2.06
     },
     {
       "name": "NVDA",
@@ -199,7 +199,7 @@
       "ma10": 206.76,
       "ma20": 211.68,
       "rsi": 49.9,
-      "vol_ratio": 1.7
+      "vol_ratio": 1.77
     },
     {
       "name": "MSFT",
@@ -213,7 +213,7 @@
       "ma10": 396.22,
       "ma20": 413.15,
       "rsi": 18.6,
-      "vol_ratio": 1.42
+      "vol_ratio": 1.56
     },
     {
       "name": "AAPL",
@@ -241,7 +241,7 @@
       "ma10": 364.41,
       "ma20": 371.5,
       "rsi": 42.7,
-      "vol_ratio": 1.55
+      "vol_ratio": 1.61
     },
     {
       "name": "AMZN",
@@ -297,36 +297,36 @@
       "ma10": 719.81,
       "ma20": 726.88,
       "rsi": 50.7,
-      "vol_ratio": 0.85
+      "vol_ratio": 0.92
     }
   ],
   "macro": [
     {
       "name": "VIX",
       "symbol": "^VIX",
-      "price": 16.44,
-      "change": -2.0,
-      "pct": -10.85,
+      "price": 16.4,
+      "change": -2.04,
+      "pct": -11.06,
       "high": 17.6,
       "low": 16.35,
       "ma5": 17.03,
       "ma10": 18.71,
       "ma20": 17.4,
-      "rsi": 52.3,
+      "rsi": 52.2,
       "vol_ratio": null
     },
     {
       "name": "美元指數 DXY",
       "symbol": "DX-Y.NYB",
-      "price": 100.79,
-      "change": 0.7,
-      "pct": 0.7,
+      "price": 100.81,
+      "change": 0.72,
+      "pct": 0.72,
       "high": 100.92,
       "low": 100.21,
       "ma5": 99.96,
-      "ma10": 99.96,
+      "ma10": 99.97,
       "ma20": 99.59,
-      "rsi": 78.8,
+      "rsi": 79.0,
       "vol_ratio": null
     },
     {
@@ -346,43 +346,43 @@
     {
       "name": "布蘭特原油",
       "symbol": "BZ=F",
-      "price": 79.46,
-      "change": -0.09,
-      "pct": -0.11,
-      "high": 80.04,
-      "low": 76.58,
-      "ma5": 81.69,
-      "ma10": 87.07,
-      "ma20": 92.02,
-      "rsi": 29.6,
-      "vol_ratio": 0.8
+      "price": 79.34,
+      "change": -0.21,
+      "pct": -0.26,
+      "high": 79.38,
+      "low": 79.21,
+      "ma5": 81.67,
+      "ma10": 87.06,
+      "ma20": 92.01,
+      "rsi": 29.5,
+      "vol_ratio": 0.0
     },
     {
       "name": "黃金",
       "symbol": "GC=F",
-      "price": 4236.2,
-      "change": -122.7,
-      "pct": -2.81,
-      "high": 4350.2,
-      "low": 4220.3,
-      "ma5": 4293.8,
-      "ma10": 4260.05,
-      "ma20": 4377.29,
-      "rsi": 33.2,
-      "vol_ratio": 131.93
+      "price": 4224.7,
+      "change": -134.2,
+      "pct": -3.08,
+      "high": 4231.4,
+      "low": 4221.4,
+      "ma5": 4291.5,
+      "ma10": 4258.9,
+      "ma20": 4376.72,
+      "rsi": 32.8,
+      "vol_ratio": 0.41
     },
     {
       "name": "USD/TWD",
       "symbol": "TWD=X",
-      "price": 31.6,
-      "change": 0.04,
-      "pct": 0.12,
-      "high": 31.67,
-      "low": 31.53,
+      "price": 31.64,
+      "change": 0.08,
+      "pct": 0.24,
+      "high": 31.66,
+      "low": 31.62,
       "ma5": 31.58,
-      "ma10": 31.57,
+      "ma10": 31.58,
       "ma20": 31.51,
-      "rsi": 61.2,
+      "rsi": 62.9,
       "vol_ratio": null
     }
   ],
@@ -571,76 +571,76 @@
       "ma10": 25978.58,
       "ma20": 26375.48,
       "rsi": 45.6,
-      "vol_ratio": 1.63
+      "vol_ratio": 1.66
     },
     "vix": {
       "name": "VIX",
       "symbol": "^VIX",
-      "price": 16.44,
-      "change": -2.0,
-      "pct": -10.85,
+      "price": 16.4,
+      "change": -2.04,
+      "pct": -11.06,
       "high": 17.6,
       "low": 16.35,
       "ma5": 17.03,
       "ma10": 18.71,
       "ma20": 17.4,
-      "rsi": 52.3,
+      "rsi": 52.2,
       "vol_ratio": null
     },
     "dxy": {
       "name": "美元指數 DXY",
       "symbol": "DX-Y.NYB",
-      "price": 100.79,
-      "change": 0.7,
-      "pct": 0.7,
+      "price": 100.81,
+      "change": 0.72,
+      "pct": 0.72,
       "high": 100.92,
       "low": 100.21,
       "ma5": 99.96,
-      "ma10": 99.96,
+      "ma10": 99.97,
       "ma20": 99.59,
-      "rsi": 78.8,
+      "rsi": 79.0,
       "vol_ratio": null
     },
     "gold": {
       "name": "黃金",
       "symbol": "GC=F",
-      "price": 4236.2,
-      "change": -122.7,
-      "pct": -2.81,
-      "high": 4350.2,
-      "low": 4220.3,
-      "ma5": 4293.8,
-      "ma10": 4260.05,
-      "ma20": 4377.29,
-      "rsi": 33.2,
-      "vol_ratio": 131.93
+      "price": 4224.7,
+      "change": -134.2,
+      "pct": -3.08,
+      "high": 4231.4,
+      "low": 4221.4,
+      "ma5": 4291.5,
+      "ma10": 4258.9,
+      "ma20": 4376.72,
+      "rsi": 32.8,
+      "vol_ratio": 0.41
     },
     "oil": {
       "name": "布蘭特原油",
       "symbol": "BZ=F",
-      "price": 79.46,
-      "change": -0.09,
-      "pct": -0.11,
-      "high": 80.04,
-      "low": 76.58,
-      "ma5": 81.69,
-      "ma10": 87.07,
-      "ma20": 92.02,
-      "rsi": 29.6,
-      "vol_ratio": 0.8
+      "price": 79.34,
+      "change": -0.21,
+      "pct": -0.26,
+      "high": 79.38,
+      "low": 79.21,
+      "ma5": 81.67,
+      "ma10": 87.06,
+      "ma20": 92.01,
+      "rsi": 29.5,
+      "vol_ratio": 0.0
     },
     "usd_twd": {
       "name": "USD/TWD",
       "symbol": "TWD=X",
-      "price": 31.6,
-      "change": 0.04,
-      "pct": 0.12,
-      "high": 31.67,
-      "low": 31.53,
+      "price": 31.64,
+      "change": 0.08,
+      "pct": 0.24,
+      "high": 31.66,
+      "low": 31.62,
       "ma5": 31.58,
-      "ma10": 31.57,
+      "ma10": 31.58,
       "ma20": 31.51,
-      "rsi": 61.2,
+      "rsi": 62.9,
       "vol_ratio": null
     },
     "us10y": {
