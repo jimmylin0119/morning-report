@@ -1,21 +1,21 @@
 {
-  "updated_at": "2026-07-03 05:15:01",
-  "updated_ts": 1783026901,
+  "updated_at": "2026-07-03 06:05:14",
+  "updated_ts": 1783029914,
   "market_status": "盤後時段",
   "tw": [
     {
       "name": "加權指數",
       "symbol": "^TWII",
-      "price": 47018.99,
-      "change": 893.08,
-      "pct": 1.94,
-      "high": 47293.1,
-      "low": 46234.7,
-      "ma5": 45794.36,
-      "ma10": 46220.02,
-      "ma20": 45468.26,
-      "rsi": 67.7,
-      "vol_ratio": 1.13
+      "price": 46744.16,
+      "change": -274.83,
+      "pct": -0.58,
+      "high": 46910.31,
+      "low": 45981.89,
+      "ma5": null,
+      "ma10": null,
+      "ma20": null,
+      "rsi": null,
+      "vol_ratio": null
     },
     {
       "name": "櫃買指數",
@@ -47,45 +47,45 @@
     },
     {
       "name": "鴻海",
-      "symbol": "2317.TW",
+      "symbol": "2317",
       "price": 239.0,
-      "change": -1.83,
-      "pct": -0.76,
+      "change": -2.0,
+      "pct": -0.83,
       "high": 243.0,
       "low": 238.0,
-      "ma5": 240.85,
-      "ma10": 247.64,
-      "ma20": 255.64,
-      "rsi": 38.0,
-      "vol_ratio": 1.16
+      "ma5": null,
+      "ma10": null,
+      "ma20": null,
+      "rsi": null,
+      "vol_ratio": null
     },
     {
       "name": "聯發科",
-      "symbol": "2454.TW",
+      "symbol": "2454",
       "price": 4345.0,
       "change": 10.0,
       "pct": 0.23,
       "high": 4380.0,
       "low": 4150.0,
-      "ma5": 4143.0,
-      "ma10": 4270.0,
-      "ma20": 4294.25,
-      "rsi": 56.6,
-      "vol_ratio": 0.52
+      "ma5": null,
+      "ma10": null,
+      "ma20": null,
+      "rsi": null,
+      "vol_ratio": null
     },
     {
       "name": "廣達",
-      "symbol": "2382.TW",
+      "symbol": "2382",
       "price": 369.0,
       "change": -3.0,
       "pct": -0.81,
       "high": 372.0,
       "low": 365.5,
-      "ma5": 367.6,
-      "ma10": 370.5,
-      "ma20": 374.0,
-      "rsi": 49.2,
-      "vol_ratio": 0.63
+      "ma5": null,
+      "ma10": null,
+      "ma20": null,
+      "rsi": null,
+      "vol_ratio": null
     },
     {
       "name": "緯創",
@@ -103,45 +103,45 @@
     },
     {
       "name": "長榮",
-      "symbol": "2603.TW",
+      "symbol": "2603",
       "price": 185.5,
       "change": 0.0,
       "pct": 0.0,
       "high": 187.0,
       "low": 183.5,
-      "ma5": 184.1,
-      "ma10": 186.7,
-      "ma20": 197.46,
-      "rsi": 17.3,
-      "vol_ratio": 0.41
+      "ma5": null,
+      "ma10": null,
+      "ma20": null,
+      "rsi": null,
+      "vol_ratio": null
     },
     {
       "name": "大立光",
-      "symbol": "3008.TW",
+      "symbol": "3008",
       "price": 4295.0,
       "change": -35.0,
       "pct": -0.81,
       "high": 4395.0,
       "low": 4250.0,
-      "ma5": 4403.0,
-      "ma10": 4746.0,
-      "ma20": 4456.25,
-      "rsi": 52.3,
-      "vol_ratio": 0.49
+      "ma5": null,
+      "ma10": null,
+      "ma20": null,
+      "rsi": null,
+      "vol_ratio": null
     },
     {
       "name": "聯電",
-      "symbol": "2303.TW",
+      "symbol": "2303",
       "price": 165.5,
       "change": -3.5,
       "pct": -2.07,
       "high": 168.0,
       "low": 158.0,
-      "ma5": 165.4,
-      "ma10": 165.9,
-      "ma20": 148.18,
-      "rsi": 75.5,
-      "vol_ratio": 0.27
+      "ma5": null,
+      "ma10": null,
+      "ma20": null,
+      "rsi": null,
+      "vol_ratio": null
     }
   ],
   "us": [
@@ -171,7 +171,7 @@
       "ma10": 25831.1,
       "ma20": 25920.49,
       "rsi": 50.3,
-      "vol_ratio": 0.75
+      "vol_ratio": 0.76
     },
     {
       "name": "Dow Jones",
@@ -318,15 +318,15 @@
     {
       "name": "美元指數 DXY",
       "symbol": "DX-Y.NYB",
-      "price": 100.86,
-      "change": -0.53,
-      "pct": -0.52,
+      "price": 100.88,
+      "change": -0.51,
+      "pct": -0.5,
       "high": 101.43,
       "low": 100.56,
-      "ma5": 101.18,
+      "ma5": 101.19,
       "ma10": 101.22,
-      "ma20": 100.52,
-      "rsi": 63.5,
+      "ma20": 100.53,
+      "rsi": 63.9,
       "vol_ratio": null
     },
     {
@@ -374,24 +374,24 @@
     {
       "name": "USD/TWD",
       "symbol": "TWD=X",
-      "price": 31.89,
-      "change": 0.06,
-      "pct": 0.18,
-      "high": 31.98,
-      "low": 31.83,
-      "ma5": 31.86,
-      "ma10": 31.78,
+      "price": 31.93,
+      "change": 0.1,
+      "pct": 0.31,
+      "high": 31.93,
+      "low": 31.92,
+      "ma5": 31.87,
+      "ma10": 31.79,
       "ma20": 31.68,
-      "rsi": 75.0,
+      "rsi": 76.5,
       "vol_ratio": null
     }
   ],
   "tw_ticker": [
     {
       "sym": "加權指數",
-      "price": "47,018.99",
-      "chg": "+1.94%",
-      "dir": "up"
+      "price": "46,744.16",
+      "chg": "-0.58%",
+      "dir": "down"
     },
     {
       "sym": "櫃買指數",
@@ -408,7 +408,7 @@
     {
       "sym": "鴻海",
       "price": "239.00",
-      "chg": "-0.76%",
+      "chg": "-0.83%",
       "dir": "down"
     },
     {
@@ -520,16 +520,16 @@
     "twse": {
       "name": "加權指數",
       "symbol": "^TWII",
-      "price": 47018.99,
-      "change": 893.08,
-      "pct": 1.94,
-      "high": 47293.1,
-      "low": 46234.7,
-      "ma5": 45794.36,
-      "ma10": 46220.02,
-      "ma20": 45468.26,
-      "rsi": 67.7,
-      "vol_ratio": 1.13
+      "price": 46744.16,
+      "change": -274.83,
+      "pct": -0.58,
+      "high": 46910.31,
+      "low": 45981.89,
+      "ma5": null,
+      "ma10": null,
+      "ma20": null,
+      "rsi": null,
+      "vol_ratio": null
     },
     "tpex": {
       "name": "櫃買指數",
@@ -571,7 +571,7 @@
       "ma10": 25831.1,
       "ma20": 25920.49,
       "rsi": 50.3,
-      "vol_ratio": 0.75
+      "vol_ratio": 0.76
     },
     "vix": {
       "name": "VIX",
@@ -590,15 +590,15 @@
     "dxy": {
       "name": "美元指數 DXY",
       "symbol": "DX-Y.NYB",
-      "price": 100.86,
-      "change": -0.53,
-      "pct": -0.52,
+      "price": 100.88,
+      "change": -0.51,
+      "pct": -0.5,
       "high": 101.43,
       "low": 100.56,
-      "ma5": 101.18,
+      "ma5": 101.19,
       "ma10": 101.22,
-      "ma20": 100.52,
-      "rsi": 63.5,
+      "ma20": 100.53,
+      "rsi": 63.9,
       "vol_ratio": null
     },
     "gold": {
@@ -632,15 +632,15 @@
     "usd_twd": {
       "name": "USD/TWD",
       "symbol": "TWD=X",
-      "price": 31.89,
-      "change": 0.06,
-      "pct": 0.18,
-      "high": 31.98,
-      "low": 31.83,
-      "ma5": 31.86,
-      "ma10": 31.78,
+      "price": 31.93,
+      "change": 0.1,
+      "pct": 0.31,
+      "high": 31.93,
+      "low": 31.92,
+      "ma5": 31.87,
+      "ma10": 31.79,
       "ma20": 31.68,
-      "rsi": 75.0,
+      "rsi": 76.5,
       "vol_ratio": null
     },
     "us10y": {
