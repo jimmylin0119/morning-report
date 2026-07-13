@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-07-14 05:11:46",
-  "updated_ts": 1783977106,
+  "updated_at": "2026-07-14 05:55:23",
+  "updated_ts": 1783979723,
   "market_status": "盤後時段",
   "tw": [
     {
@@ -157,7 +157,7 @@
       "ma10": 7506.46,
       "ma20": 7469.52,
       "rsi": 53.9,
-      "vol_ratio": 0.57
+      "vol_ratio": 0.58
     },
     {
       "name": "NASDAQ",
@@ -185,7 +185,7 @@
       "ma10": 52565.98,
       "ma20": 52130.76,
       "rsi": 64.6,
-      "vol_ratio": 0.9
+      "vol_ratio": 0.91
     },
     {
       "name": "NVDA",
@@ -318,15 +318,15 @@
     {
       "name": "美元指數 DXY",
       "symbol": "DX-Y.NYB",
-      "price": 101.29,
-      "change": 0.32,
-      "pct": 0.32,
+      "price": 101.28,
+      "change": 0.31,
+      "pct": 0.3,
       "high": 101.33,
       "low": 100.79,
       "ma5": 101.08,
       "ma10": 101.08,
       "ma20": 100.87,
-      "rsi": 55.0,
+      "rsi": 54.7,
       "vol_ratio": null
     },
     {
@@ -375,8 +375,8 @@
       "name": "USD/TWD",
       "symbol": "TWD=X",
       "price": 32.17,
-      "change": 0.08,
-      "pct": 0.24,
+      "change": 0.07,
+      "pct": 0.23,
       "high": 32.23,
       "low": 32.03,
       "ma5": 32.11,
@@ -557,7 +557,7 @@
       "ma10": 7506.46,
       "ma20": 7469.52,
       "rsi": 53.9,
-      "vol_ratio": 0.57
+      "vol_ratio": 0.58
     },
     "nasdaq": {
       "name": "NASDAQ",
@@ -590,15 +590,15 @@
     "dxy": {
       "name": "美元指數 DXY",
       "symbol": "DX-Y.NYB",
-      "price": 101.29,
-      "change": 0.32,
-      "pct": 0.32,
+      "price": 101.28,
+      "change": 0.31,
+      "pct": 0.3,
       "high": 101.33,
       "low": 100.79,
       "ma5": 101.08,
       "ma10": 101.08,
       "ma20": 100.87,
-      "rsi": 55.0,
+      "rsi": 54.7,
       "vol_ratio": null
     },
     "gold": {
@@ -633,8 +633,8 @@
       "name": "USD/TWD",
       "symbol": "TWD=X",
       "price": 32.17,
-      "change": 0.08,
-      "pct": 0.24,
+      "change": 0.07,
+      "pct": 0.23,
       "high": 32.23,
       "low": 32.03,
       "ma5": 32.11,
