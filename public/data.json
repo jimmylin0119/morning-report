@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-07-16 05:13:44",
-  "updated_ts": 1784150024,
+  "updated_at": "2026-07-16 05:59:27",
+  "updated_ts": 1784152767,
   "market_status": "盤後時段",
   "tw": [
     {
@@ -171,7 +171,7 @@
       "ma10": 26042.11,
       "ma20": 25962.87,
       "rsi": 61.9,
-      "vol_ratio": 0.85
+      "vol_ratio": 0.86
     },
     {
       "name": "Dow Jones",
@@ -318,15 +318,15 @@
     {
       "name": "美元指數 DXY",
       "symbol": "DX-Y.NYB",
-      "price": 100.52,
-      "change": -0.42,
-      "pct": -0.42,
+      "price": 100.5,
+      "change": -0.44,
+      "pct": -0.43,
       "high": 101.03,
       "low": 100.35,
       "ma5": 100.93,
       "ma10": 100.99,
       "ma20": 100.98,
-      "rsi": 31.2,
+      "rsi": 31.1,
       "vol_ratio": null
     },
     {
@@ -374,15 +374,15 @@
     {
       "name": "USD/TWD",
       "symbol": "TWD=X",
-      "price": 32.14,
-      "change": -0.02,
-      "pct": -0.06,
-      "high": 32.21,
-      "low": 32.1,
-      "ma5": 32.12,
+      "price": 32.19,
+      "change": 0.02,
+      "pct": 0.07,
+      "high": 32.19,
+      "low": 32.18,
+      "ma5": 32.13,
       "ma10": 32.06,
       "ma20": 31.91,
-      "rsi": 80.7,
+      "rsi": 84.3,
       "vol_ratio": null
     }
   ],
@@ -571,7 +571,7 @@
       "ma10": 26042.11,
       "ma20": 25962.87,
       "rsi": 61.9,
-      "vol_ratio": 0.85
+      "vol_ratio": 0.86
     },
     "vix": {
       "name": "VIX",
@@ -590,15 +590,15 @@
     "dxy": {
       "name": "美元指數 DXY",
       "symbol": "DX-Y.NYB",
-      "price": 100.52,
-      "change": -0.42,
-      "pct": -0.42,
+      "price": 100.5,
+      "change": -0.44,
+      "pct": -0.43,
       "high": 101.03,
       "low": 100.35,
       "ma5": 100.93,
       "ma10": 100.99,
       "ma20": 100.98,
-      "rsi": 31.2,
+      "rsi": 31.1,
       "vol_ratio": null
     },
     "gold": {
@@ -632,15 +632,15 @@
     "usd_twd": {
       "name": "USD/TWD",
       "symbol": "TWD=X",
-      "price": 32.14,
-      "change": -0.02,
-      "pct": -0.06,
-      "high": 32.21,
-      "low": 32.1,
-      "ma5": 32.12,
+      "price": 32.19,
+      "change": 0.02,
+      "pct": 0.07,
+      "high": 32.19,
+      "low": 32.18,
+      "ma5": 32.13,
       "ma10": 32.06,
       "ma20": 31.91,
-      "rsi": 80.7,
+      "rsi": 84.3,
       "vol_ratio": null
     },
     "us10y": {
