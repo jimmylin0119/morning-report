@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-09-08 02:49:41",
-  "updated_ts": 1788806981,
+  "updated_at": "2026-09-08 02:57:10",
+  "updated_ts": 1788807430,
   "market_status": "美股開盤中",
   "tw": [
     {
@@ -318,7 +318,7 @@
     {
       "name": "美元指數 DXY",
       "symbol": "DX-Y.NYB",
-      "price": 98.91,
+      "price": 98.92,
       "change": -0.25,
       "pct": -0.25,
       "high": 99.21,
@@ -376,7 +376,7 @@
       "symbol": "TWD=X",
       "price": 31.51,
       "change": -0.18,
-      "pct": -0.58,
+      "pct": -0.57,
       "high": 31.65,
       "low": 31.49,
       "ma5": 31.66,
@@ -590,7 +590,7 @@
     "dxy": {
       "name": "美元指數 DXY",
       "symbol": "DX-Y.NYB",
-      "price": 98.91,
+      "price": 98.92,
       "change": -0.25,
       "pct": -0.25,
       "high": 99.21,
@@ -634,7 +634,7 @@
       "symbol": "TWD=X",
       "price": 31.51,
       "change": -0.18,
-      "pct": -0.58,
+      "pct": -0.57,
       "high": 31.65,
       "low": 31.49,
       "ma5": 31.66,
