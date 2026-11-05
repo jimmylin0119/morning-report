@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-11-06 05:10:29",
-  "updated_ts": 1793913029,
+  "updated_at": "2026-11-06 05:17:39",
+  "updated_ts": 1793913459,
   "market_status": "盤後時段",
   "tw": [
     {
@@ -33,31 +33,31 @@
     },
     {
       "name": "鴻海",
-      "symbol": "2317.TW",
-      "price": 240.0,
-      "change": -5.5,
-      "pct": -2.24,
-      "high": 247.5,
-      "low": 236.5,
-      "ma5": 246.0,
-      "ma10": 246.9,
-      "ma20": 245.9,
-      "rsi": 47.4,
-      "vol_ratio": 1.61
+      "symbol": "2317",
+      "price": 235.0,
+      "change": -5.0,
+      "pct": -2.08,
+      "high": 241.5,
+      "low": 234.0,
+      "ma5": null,
+      "ma10": null,
+      "ma20": null,
+      "rsi": null,
+      "vol_ratio": null
     },
     {
       "name": "聯發科",
-      "symbol": "2454.TW",
-      "price": 3715.0,
-      "change": 40.0,
-      "pct": 1.09,
-      "high": 3760.0,
-      "low": 3455.0,
-      "ma5": 3864.0,
-      "ma10": 3967.5,
-      "ma20": 4225.75,
-      "rsi": 27.2,
-      "vol_ratio": 1.47
+      "symbol": "2454",
+      "price": 3460.0,
+      "change": -255.0,
+      "pct": -6.86,
+      "high": 3715.0,
+      "low": 3450.0,
+      "ma5": null,
+      "ma10": null,
+      "ma20": null,
+      "rsi": null,
+      "vol_ratio": null
     },
     {
       "name": "廣達",
@@ -89,17 +89,17 @@
     },
     {
       "name": "長榮",
-      "symbol": "2603.TW",
-      "price": 268.0,
-      "change": 1.5,
-      "pct": 0.56,
-      "high": 268.5,
-      "low": 261.0,
-      "ma5": 268.3,
-      "ma10": 264.35,
-      "ma20": 258.57,
-      "rsi": 54.7,
-      "vol_ratio": 0.79
+      "symbol": "2603",
+      "price": 259.0,
+      "change": -9.0,
+      "pct": -3.36,
+      "high": 269.5,
+      "low": 257.0,
+      "ma5": null,
+      "ma10": null,
+      "ma20": null,
+      "rsi": null,
+      "vol_ratio": null
     },
     {
       "name": "大立光",
@@ -117,17 +117,17 @@
     },
     {
       "name": "聯電",
-      "symbol": "2303.TW",
-      "price": 105.5,
-      "change": 2.5,
-      "pct": 2.43,
-      "high": 107.5,
-      "low": 100.0,
-      "ma5": 109.1,
-      "ma10": 117.5,
-      "ma20": 128.62,
-      "rsi": 16.5,
-      "vol_ratio": 0.82
+      "symbol": "2303",
+      "price": 98.4,
+      "change": -7.1,
+      "pct": -6.73,
+      "high": 104.5,
+      "low": 97.9,
+      "ma5": null,
+      "ma10": null,
+      "ma20": null,
+      "rsi": null,
+      "vol_ratio": null
     }
   ],
   "us": [
@@ -171,7 +171,7 @@
       "ma10": 52219.22,
       "ma20": 52167.77,
       "rsi": 46.2,
-      "vol_ratio": 1.48
+      "vol_ratio": 1.49
     },
     {
       "name": "NVDA",
@@ -185,7 +185,7 @@
       "ma10": 206.91,
       "ma20": 213.68,
       "rsi": 27.6,
-      "vol_ratio": 2.43
+      "vol_ratio": 2.48
     },
     {
       "name": "MSFT",
@@ -194,12 +194,12 @@
       "change": -19.87,
       "pct": -3.58,
       "high": 557.62,
-      "low": 532.7,
+      "low": 532.67,
       "ma5": 528.35,
       "ma10": 529.13,
       "ma20": 531.63,
       "rsi": 52.8,
-      "vol_ratio": 1.06
+      "vol_ratio": 1.15
     },
     {
       "name": "AAPL",
@@ -213,7 +213,7 @@
       "ma10": 344.0,
       "ma20": 343.1,
       "rsi": 50.5,
-      "vol_ratio": 1.07
+      "vol_ratio": 1.11
     },
     {
       "name": "GOOGL",
@@ -227,7 +227,7 @@
       "ma10": 297.67,
       "ma20": 320.79,
       "rsi": 21.4,
-      "vol_ratio": 0.75
+      "vol_ratio": 0.77
     },
     {
       "name": "AMZN",
@@ -236,12 +236,12 @@
       "change": -5.82,
       "pct": -2.19,
       "high": 273.23,
-      "low": 252.28,
+      "low": 252.32,
       "ma5": 252.58,
       "ma10": 251.15,
       "ma20": 254.43,
       "rsi": 56.4,
-      "vol_ratio": 1.07
+      "vol_ratio": 1.1
     },
     {
       "name": "TSLA",
@@ -264,12 +264,12 @@
       "change": -24.92,
       "pct": -3.96,
       "high": 634.99,
-      "low": 583.98,
+      "low": 583.8,
       "ma5": 615.57,
       "ma10": 620.82,
       "ma20": 668.1,
       "rsi": 21.3,
-      "vol_ratio": 1.08
+      "vol_ratio": 1.14
     },
     {
       "name": "QQQ",
@@ -283,36 +283,36 @@
       "ma10": 697.47,
       "ma20": 712.4,
       "rsi": 30.3,
-      "vol_ratio": 2.17
+      "vol_ratio": 2.21
     }
   ],
   "macro": [
     {
       "name": "VIX",
       "symbol": "^VIX",
-      "price": 26.86,
-      "change": 10.25,
-      "pct": 61.71,
-      "high": 28.09,
+      "price": 27.83,
+      "change": 11.22,
+      "pct": 67.55,
+      "high": 28.18,
       "low": 16.7,
-      "ma5": 20.97,
-      "ma10": 19.43,
-      "ma20": 18.22,
-      "rsi": 62.4,
+      "ma5": 21.17,
+      "ma10": 19.53,
+      "ma20": 18.27,
+      "rsi": 63.7,
       "vol_ratio": null
     },
     {
       "name": "美元指數 DXY",
       "symbol": "DX-Y.NYB",
-      "price": 101.61,
-      "change": 0.1,
-      "pct": 0.1,
+      "price": 101.62,
+      "change": 0.11,
+      "pct": 0.11,
       "high": 101.71,
       "low": 101.19,
-      "ma5": 101.72,
+      "ma5": 101.73,
       "ma10": 101.89,
       "ma20": 101.97,
-      "rsi": 45.3,
+      "rsi": 45.5,
       "vol_ratio": null
     },
     {
@@ -332,43 +332,43 @@
     {
       "name": "布蘭特原油",
       "symbol": "BZ=F",
-      "price": 98.55,
-      "change": 3.93,
-      "pct": 4.15,
+      "price": 98.42,
+      "change": 3.8,
+      "pct": 4.02,
       "high": 98.81,
       "low": 93.44,
-      "ma5": 103.84,
-      "ma10": 109.58,
-      "ma20": 108.75,
-      "rsi": 37.0,
+      "ma5": 103.81,
+      "ma10": 109.57,
+      "ma20": 108.74,
+      "rsi": 36.8,
       "vol_ratio": 1.11
     },
     {
       "name": "黃金",
       "symbol": "GC=F",
-      "price": 4105.1,
-      "change": 32.1,
-      "pct": 0.79,
+      "price": 4095.5,
+      "change": 22.5,
+      "pct": 0.55,
       "high": 4155.8,
       "low": 4067.0,
-      "ma5": 3997.4,
-      "ma10": 4019.09,
-      "ma20": 4087.36,
-      "rsi": 44.5,
-      "vol_ratio": 1.17
+      "ma5": 3995.48,
+      "ma10": 4018.13,
+      "ma20": 4086.88,
+      "rsi": 43.8,
+      "vol_ratio": 1.18
     },
     {
       "name": "USD/TWD",
       "symbol": "TWD=X",
-      "price": 33.02,
-      "change": 0.29,
-      "pct": 0.89,
+      "price": 33.04,
+      "change": 0.31,
+      "pct": 0.95,
       "high": 33.09,
       "low": 32.8,
-      "ma5": 32.7,
+      "ma5": 32.71,
       "ma10": 32.6,
       "ma20": 32.41,
-      "rsi": 71.9,
+      "rsi": 72.3,
       "vol_ratio": null
     }
   ],
@@ -387,15 +387,15 @@
     },
     {
       "sym": "鴻海",
-      "price": "240.00",
-      "chg": "-2.24%",
+      "price": "235.00",
+      "chg": "-2.08%",
       "dir": "down"
     },
     {
       "sym": "聯發科",
-      "price": "3,715.00",
-      "chg": "+1.09%",
-      "dir": "up"
+      "price": "3,460.00",
+      "chg": "-6.86%",
+      "dir": "down"
     },
     {
       "sym": "廣達",
@@ -411,9 +411,9 @@
     },
     {
       "sym": "長榮",
-      "price": "268.00",
-      "chg": "+0.56%",
-      "dir": "up"
+      "price": "259.00",
+      "chg": "-3.36%",
+      "dir": "down"
     },
     {
       "sym": "大立光",
@@ -423,9 +423,9 @@
     },
     {
       "sym": "聯電",
-      "price": "105.50",
-      "chg": "+2.43%",
-      "dir": "up"
+      "price": "98.40",
+      "chg": "-6.73%",
+      "dir": "down"
     }
   ],
   "us_ticker": [
@@ -543,71 +543,71 @@
     "vix": {
       "name": "VIX",
       "symbol": "^VIX",
-      "price": 26.86,
-      "change": 10.25,
-      "pct": 61.71,
-      "high": 28.09,
+      "price": 27.83,
+      "change": 11.22,
+      "pct": 67.55,
+      "high": 28.18,
       "low": 16.7,
-      "ma5": 20.97,
-      "ma10": 19.43,
-      "ma20": 18.22,
-      "rsi": 62.4,
+      "ma5": 21.17,
+      "ma10": 19.53,
+      "ma20": 18.27,
+      "rsi": 63.7,
       "vol_ratio": null
     },
     "dxy": {
       "name": "美元指數 DXY",
       "symbol": "DX-Y.NYB",
-      "price": 101.61,
-      "change": 0.1,
-      "pct": 0.1,
+      "price": 101.62,
+      "change": 0.11,
+      "pct": 0.11,
       "high": 101.71,
       "low": 101.19,
-      "ma5": 101.72,
+      "ma5": 101.73,
       "ma10": 101.89,
       "ma20": 101.97,
-      "rsi": 45.3,
+      "rsi": 45.5,
       "vol_ratio": null
     },
     "gold": {
       "name": "黃金",
       "symbol": "GC=F",
-      "price": 4105.1,
-      "change": 32.1,
-      "pct": 0.79,
+      "price": 4095.5,
+      "change": 22.5,
+      "pct": 0.55,
       "high": 4155.8,
       "low": 4067.0,
-      "ma5": 3997.4,
-      "ma10": 4019.09,
-      "ma20": 4087.36,
-      "rsi": 44.5,
-      "vol_ratio": 1.17
+      "ma5": 3995.48,
+      "ma10": 4018.13,
+      "ma20": 4086.88,
+      "rsi": 43.8,
+      "vol_ratio": 1.18
     },
     "oil": {
       "name": "布蘭特原油",
       "symbol": "BZ=F",
-      "price": 98.55,
-      "change": 3.93,
-      "pct": 4.15,
+      "price": 98.42,
+      "change": 3.8,
+      "pct": 4.02,
       "high": 98.81,
       "low": 93.44,
-      "ma5": 103.84,
-      "ma10": 109.58,
-      "ma20": 108.75,
-      "rsi": 37.0,
+      "ma5": 103.81,
+      "ma10": 109.57,
+      "ma20": 108.74,
+      "rsi": 36.8,
       "vol_ratio": 1.11
     },
     "usd_twd": {
       "name": "USD/TWD",
       "symbol": "TWD=X",
-      "price": 33.02,
-      "change": 0.29,
-      "pct": 0.89,
+      "price": 33.04,
+      "change": 0.31,
+      "pct": 0.95,
       "high": 33.09,
       "low": 32.8,
-      "ma5": 32.7,
+      "ma5": 32.71,
       "ma10": 32.6,
       "ma20": 32.41,
-      "rsi": 71.9,
+      "rsi": 72.3,
       "vol_ratio": null
     },
     "us10y": {
