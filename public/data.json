@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-11-18 06:34:37",
-  "updated_ts": 1794954877,
+  "updated_at": "2026-11-18 06:44:39",
+  "updated_ts": 1794955479,
   "market_status": "盤後時段",
   "tw": [
     {
@@ -304,9 +304,9 @@
     {
       "name": "美元指數 DXY",
       "symbol": "DX-Y.NYB",
-      "price": 103.55,
-      "change": 0.0,
-      "pct": 0.0,
+      "price": 103.56,
+      "change": 0.01,
+      "pct": 0.01,
       "high": 103.78,
       "low": 103.36,
       "ma5": 103.32,
@@ -335,7 +335,7 @@
       "price": 93.07,
       "change": 0.63,
       "pct": 0.68,
-      "high": 94.14,
+      "high": 94.08,
       "low": 91.25,
       "ma5": 93.99,
       "ma10": 94.52,
@@ -360,15 +360,15 @@
     {
       "name": "USD/TWD",
       "symbol": "TWD=X",
-      "price": 32.91,
+      "price": 32.92,
       "change": 0.04,
-      "pct": 0.11,
+      "pct": 0.12,
       "high": 33.04,
       "low": 32.85,
       "ma5": 32.91,
       "ma10": 32.88,
       "ma20": 32.7,
-      "rsi": 65.0,
+      "rsi": 65.1,
       "vol_ratio": null
     }
   ],
@@ -557,9 +557,9 @@
     "dxy": {
       "name": "美元指數 DXY",
       "symbol": "DX-Y.NYB",
-      "price": 103.55,
-      "change": 0.0,
-      "pct": 0.0,
+      "price": 103.56,
+      "change": 0.01,
+      "pct": 0.01,
       "high": 103.78,
       "low": 103.36,
       "ma5": 103.32,
@@ -588,7 +588,7 @@
       "price": 93.07,
       "change": 0.63,
       "pct": 0.68,
-      "high": 94.14,
+      "high": 94.08,
       "low": 91.25,
       "ma5": 93.99,
       "ma10": 94.52,
@@ -599,15 +599,15 @@
     "usd_twd": {
       "name": "USD/TWD",
       "symbol": "TWD=X",
-      "price": 32.91,
+      "price": 32.92,
       "change": 0.04,
-      "pct": 0.11,
+      "pct": 0.12,
       "high": 33.04,
       "low": 32.85,
       "ma5": 32.91,
       "ma10": 32.88,
       "ma20": 32.7,
-      "rsi": 65.0,
+      "rsi": 65.1,
       "vol_ratio": null
     },
     "us10y": {
